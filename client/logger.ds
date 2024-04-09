@@ -1,0 +1,27 @@
+# Connect to local machine and load vmm module
+.connect local
+load vmm
+
+# Configure symbols, load them once and then use only local path
+.sympath SRV*c:\Symbols*https://msdl.microsoft.com/download/symbols
+.sym reload
+
+# Log output to controller socket
+output create SysCallLog TCP 192.168.1.2:8989
+output open SysCallLog
+
+# Log all syscalls, adapted from https://github.com/HyperDbg/scripts/blob/master/windows/DFIR/process-behavior-logger.ds
+# pname,pid,tid,syscall,rcx,rdx,r8,r9\n
+!syscall script { 
+    printf("%s,%x,%x,%llx,%llx,%llx,%llx,%llx\n", $pname, $pid, $tid, @rax, @r10, @rdx, @r8, @r9); 
+} output {SysCallLog}
+
+# not supported for vmi mode :(
+# .start path "C:\Users\Client\AppData\Local\Programs\Python\Python312\python.exe" "C:\HyperDbg\client\BenignScript\file_ops.py"
+
+# => collect for n milliseconds (hex) => 10000 ~= 65 seconds
+sleep 10000
+
+# close output and exit logger
+output close SysCallLog
+exit
