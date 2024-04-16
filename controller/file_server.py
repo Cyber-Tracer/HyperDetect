@@ -1,13 +1,13 @@
 import os
 import socket
 
-def send_file(filepath, client_socket):
+def send_file(filepath, client_socket, target_dir):
     # Get the file size
     filesize = os.path.getsize(filepath)
     filename = os.path.basename(filepath)
     
     # Send the filesize and filename
-    client_socket.send(f"{filesize}:{filename}".encode())
+    client_socket.send(f"{filesize}:{filename}:{target_dir}".encode())
     
     # Open the file and send its content
     with open(filepath, 'rb') as f:
@@ -49,7 +49,8 @@ print('Waiting for a connection...')
 connection, client_address = sock.accept()
 print("Connection established with ", client_address)
 filename = read_file_from_input()
-send_file(filename, connection)
+target_dir = input("Enter the target directory (default = C:\HyperDbg\client): ")
+send_file(filename, connection, target_dir)
 print("File sent successfully.")
 connection.close()
 sock.close()

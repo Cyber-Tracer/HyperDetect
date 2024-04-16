@@ -1,14 +1,20 @@
 import socket
 import time
+import os
 
 # Socket to receive a file from the controller
 
 def receive_file(conn):    
     # Receive the first message containing file size and name
     initial_msg = conn.recv(1024).decode()
-    filesize, filename = initial_msg.split(':')
+    filesize, filename, target_dir = initial_msg.split(':')
     filesize = int(filesize)
-    
+
+    if os.path.isdir(target_dir):
+        filename = os.path.join(target_dir, filename)
+    else:
+        print(f"Invalid dir {target_dir}, saving to current dir.")
+
     # Open a file for writing
     with open(filename, 'wb') as f:
         bytes_received = 0
