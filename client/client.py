@@ -7,7 +7,7 @@ import os
 def receive_file(conn):    
     # Receive the first message containing file size and name
     initial_msg = conn.recv(1024).decode()
-    filesize, filename, target_dir = initial_msg.split(':')
+    filesize, filename, target_dir = initial_msg.split(';')
     filesize = int(filesize)
 
     if os.path.isdir(target_dir):

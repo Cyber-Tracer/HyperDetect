@@ -7,7 +7,7 @@ def send_file(filepath, client_socket, target_dir):
     filename = os.path.basename(filepath)
     
     # Send the filesize and filename
-    client_socket.send(f"{filesize}:{filename}:{target_dir}".encode())
+    client_socket.send(f"{filesize};{filename};{target_dir}".encode())
     
     # Open the file and send its content
     with open(filepath, 'rb') as f:
