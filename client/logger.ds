@@ -20,7 +20,7 @@ output open SysCallLog
 # .start path "C:\Users\Client\AppData\Local\Programs\Python\Python312\python.exe" "C:\HyperDbg\client\BenignScript\file_ops.py"
 
 # => collect for n milliseconds (hex) => 10000 ~= 65 seconds
-sleep 10000
+sleep 927C0
 
 # close output and exit logger
 output close SysCallLog
