@@ -1,20 +1,24 @@
 import socket
 import threading
 import datetime
-import time
 
 def handle_connection(conn, addr):
     # Generate a unique file name for this connection
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     file_name = f"tcp_log_{addr[0]}_{addr[1]}_{timestamp}.log"
     
-    with open(file_name, "wb") as f:
+    with open(file_name, "w") as f:
+        timestamp = str(datetime.datetime.now())+","
+        f.write(timestamp)
         while True:
             data = conn.recv(1024)
-            timestamp = str(datetime.datetime.now())+","
             if not data:
                 break  # Connection closed by the client
-            f.write(timestamp.encode() + data)
+            timestamp = str(datetime.datetime.now())+","
+            data_str = data.decode()
+            data_str = data_str.replace("\n", "\n"+ timestamp)
+            f.write(data_str)
+        f.truncate(f.tell() - len(timestamp))  # Remove the last timestamp
     
     conn.close()
     print(f"Connection with {addr} closed and logged to {file_name}.")
