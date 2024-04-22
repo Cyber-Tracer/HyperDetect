@@ -1,11 +1,14 @@
 import socket
 import threading
 import datetime
+import sys
+import os
 
-def handle_connection(conn, addr):
+def handle_connection(conn, addr, log_dir):
     # Generate a unique file name for this connection
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     file_name = f"tcp_log_{addr[0]}_{addr[1]}_{timestamp}.log"
+    file_name = os.path.join(log_dir, file_name)
     
     with open(file_name, "w") as f:
         timestamp = str(datetime.datetime.now())+","
@@ -27,6 +30,23 @@ def handle_connection(conn, addr):
 host = '0.0.0.0'  # Listen on all network interfaces
 port = 8989
 
+# Get the path from command line arguments
+if len(sys.argv) > 1:
+    dir = sys.argv[1]
+    if not os.path.exists(dir) or not os.path.isdir(dir):
+        print("Invalid path:", dir)
+        print("Usage: python log_server.py [directory]")
+        sys.exit(1)
+    if not os.access(dir, os.W_OK):
+        print("Directory is not writable:", dir)
+        sys.exit(1)
+else:
+    dir = os.getcwd()
+
+print('Logging to:', dir)
+
+
+
 # Create a TCP/IP socket
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -44,5 +64,5 @@ print('IP address:', ip_address)
 while True:
     print('Waiting for a connection...')
     connection, client_address = sock.accept()
-    thread = threading.Thread(target=handle_connection, args=(connection, client_address))
+    thread = threading.Thread(target=handle_connection, args=(connection, client_address, dir))
     thread.start()
