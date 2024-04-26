@@ -23,3 +23,5 @@ ufw default deny incoming
 ufw allow 8989/tcp
 ufw enable
 
+# Mount usb drive
+mount -t vfat /dev/sda1 /media/usb_log_volume/ -o rw,umask=0000
