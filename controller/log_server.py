@@ -1,15 +1,15 @@
-import socket
-import threading
+"""
+Creates the socket HyperDbg logs to
+"""
+
 import datetime
-import sys
+import socket
 import os
 
-def handle_connection(conn, addr, log_dir):
-    # Generate a unique file name for this connection
-    timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    file_name = f"tcp_log_{addr[0]}_{addr[1]}_{timestamp}.log"
-    file_name = os.path.join(log_dir, file_name)
-    
+SERVER_IP = '0.0.0.0'
+LOG_PORT = 8989
+
+def manage_log_connection(conn, file_name):
     with open(file_name, "w") as f:
         timestamp = str(datetime.datetime.now())+","
         f.write(timestamp)
@@ -22,47 +22,29 @@ def handle_connection(conn, addr, log_dir):
             data_str = data_str.replace("\n", "\n"+ timestamp)
             f.write(data_str)
         f.truncate(f.tell() - len(timestamp))  # Remove the last timestamp
-    
-    conn.close()
-    print(f"Connection with {addr} closed and logged to {file_name}.")
 
-# Specify the server's host name and port number
-host = '0.0.0.0'  # Listen on all network interfaces
-port = 8989
+def create_log_socket(filename, client_ip):
+    """
+    Create a log socket and wait for the client to start logging
 
-# Get the path from command line arguments
-if len(sys.argv) > 1:
-    dir = sys.argv[1]
-    if not os.path.exists(dir) or not os.path.isdir(dir):
-        print("Invalid path:", dir)
-        print("Usage: python log_server.py [directory]")
-        sys.exit(1)
-    if not os.access(dir, os.W_OK):
-        print("Directory is not writable:", dir)
-        sys.exit(1)
-else:
-    dir = os.getcwd()
+    Parameters:
+        files_to_send (list): List of file paths to send to the client
+        malicious (list): List of booleans indicating if the file is malicious
+        log_dir (str): The directory to save the logs to
+        duration (int): The duration of each log in minutes
+    """
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.bind((SERVER_IP, LOG_PORT))
 
-print('Logging to:', dir)
-
-
-
-# Create a TCP/IP socket
-sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-# Bind the socket to the port
-server_address = (host, port)
-sock.bind(server_address)
-
-# Listen for incoming connections
-sock.listen(1)
-
-# Get the IP address of the current system
-ip_address = sock.getsockname()[0]
-print('IP address:', ip_address)
-
-while True:
-    print('Waiting for a connection...')
-    connection, client_address = sock.accept()
-    thread = threading.Thread(target=handle_connection, args=(connection, client_address, dir))
-    thread.start()
+    sock.listen(1)
+    while True:
+        print(f'Waiting for new logs from {client_ip}...')
+        connection, client_address = sock.accept()
+        if client_address[0] == client_ip:
+            manage_log_connection(connection, filename)
+            break
+        else:
+            print(f"Received log from unknown client {client_address[0]}, ignoring...")
+    print(f"Client closed log-connection, finished logging {filename}")
+    connection.close()
+    sock.close()

@@ -1,0 +1,13 @@
+.connect local
+load vmm
+
+output create run_tst file $$_output_file_$$
+output open run_tst
+
+!syscall script { 
+    printf("Running"); 
+} output {run_tst}
+
+output close run_tst
+unload vmm
+exit

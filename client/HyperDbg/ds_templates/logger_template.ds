@@ -19,8 +19,8 @@ output open SysCallLog
 # not supported for vmi mode :(
 # .start path "C:\Users\Client\AppData\Local\Programs\Python\Python312\python.exe" "C:\HyperDbg\client\BenignScript\file_ops.py"
 
-# => collect for n milliseconds (hex) => 10000 ~= 65 seconds
-sleep 927C0
+# => collect for n milliseconds (hex) => 927C0 == 10 minutes
+sleep $$_duration_ms_hex_$$
 
 # close output and exit logger
 output close SysCallLog
