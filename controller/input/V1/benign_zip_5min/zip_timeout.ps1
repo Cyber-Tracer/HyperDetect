@@ -1,15 +1,15 @@
 # Define the source directory, destination zip file, and timeout in seconds
-$sourcePath = "C:\Users\Client\Documents\Archive.zip"
+$sourcePath = "C:\Users\Client\Documents\Archive"
+$destinationZip = "output.zip"
 $currentLocation = Get-Location
-$destinationDir = "output"
-$destinationDir = Join-Path -Path $currentLocation -ChildPath $destinationDir
-$timeoutSeconds = 60  # Set the timeout
+$destinationZip = Join-Path -Path $currentLocation -ChildPath $destinationZip
+$timeoutSeconds = 300  # Set the timeout
 
 # Start a job to run the compression
 $job = Start-Job -ScriptBlock {
-    param($sourcePath, $destinationDir)
-    powershell -Command "Expand-Archive -Path $sourcePath -DestinationPath $destinationDir"
-} -ArgumentList $sourcePath, $destinationDir
+    param($sourcePath, $destinationZip)
+    powershell -Command "Compress-Archive -Path $sourcePath -DestinationPath $destinationZip"
+} -ArgumentList $sourcePath, $destinationZip
 
 # Wait for the job to complete with a timeout
 if (Wait-Job -Job $job -Timeout $timeoutSeconds) {
