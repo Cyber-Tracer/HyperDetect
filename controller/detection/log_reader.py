@@ -31,17 +31,13 @@ def classify_malicious(df, file_name):
     return df
 
 
-def read_all_logs(version):
+def read_all_logs(version, logs_dir = '../logs'):
     """
         Read all logs from logs directory up until version
 
         Returns
             df(timestamp, pname, pid, tid, syscall, rcx, rdx, r8, r9, malicious)
     """
-    
-    logs_dir = '../logs/'
-    logs_dir = os.path.abspath(logs_dir)
-
     version_dirs = [ f.path for f in os.scandir(logs_dir) if f.is_dir() ]
 
     files = []
@@ -62,4 +58,27 @@ def read_all_logs(version):
 
     return pd.concat(dfs)
 
-read_all_logs(1)
+def read_logs_from_dir(logs_dir):
+    """
+        Read all logs from logs directory
+
+        Returns
+            df(timestamp, pname, pid, tid, syscall, rcx, rdx, r8, r9, malicious)
+    """
+    files = os.listdir(logs_dir)
+    files = [os.path.join(logs_dir, file) for file in files]
+
+    files = filter(lambda file: file.endswith('.log'), files)
+
+    # Read all logs to df
+    dfs = []
+    for file in files:
+        df = read_file(file)
+        file_name = os.path.basename(file)
+        df = classify_malicious(df, file_name)
+        dfs.append(df)
+
+    return pd.concat(dfs)
+
+if __name__ == '__main__':
+    read_all_logs(1)

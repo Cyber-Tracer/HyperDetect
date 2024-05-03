@@ -57,8 +57,9 @@ def load_scores(version, output_dir):
     return df
 
 
-def main(version, output_dir):
-    df = read_all_logs(version)
+def main(version, log_dir, output_dir):
+    print(log_dir)
+    df = read_all_logs(version, logs_dir=log_dir)
     preprocessor = Preprocessor.get(version)
     df = preprocessor.preprocess(df)
 
@@ -82,9 +83,13 @@ def main(version, output_dir):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
+    file_dir = os.path.dirname(os.path.abspath(__file__))
     parser.add_argument('--version', type=int, default=1, help='Version of the detector system')
-    parser.add_argument('--output_dir', type=str, default=os.path.join(os.getcwd() ,'./models/trained'), help='Output directory to save the models')
+    parser.add_argument('--log_dir', type=str, default=os.path.join(file_dir ,'../logs'), help='Directory where the logs are stored')
+    parser.add_argument('--output_dir', type=str, default=os.path.join(file_dir ,'./models/trained'), help='Output directory to save the models')
     opt = parser.parse_args()
     if not os.path.exists(opt.output_dir):
         raise FileNotFoundError(f"Output directory {opt.output_dir} not found")
-    main(opt.version, opt.output_dir)
+    if not os.path.exists(opt.log_dir):
+        raise FileNotFoundError(f"Log directory {opt.log_dir} not found")
+    main(opt.version, opt.log_dir, opt.output_dir)

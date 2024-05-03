@@ -8,8 +8,10 @@ import os
 
 SERVER_IP = '0.0.0.0'
 LOG_PORT = 8989
+LOG_TIMEOUT = 60
 
 def manage_log_connection(conn, file_name):
+    conn.settimeout(LOG_TIMEOUT)
     with open(file_name, "w") as f:
         timestamp = str(datetime.datetime.now())+","
         f.write(timestamp)
@@ -41,7 +43,10 @@ def create_log_socket(filename, client_ip):
         print(f'Waiting for new logs from {client_ip}...')
         connection, client_address = sock.accept()
         if client_address[0] == client_ip:
-            manage_log_connection(connection, filename)
+            try:
+                manage_log_connection(connection, filename)
+            except TimeoutError:
+                print(f"Client {client_address[0]} timed out")
             break
         else:
             print(f"Received log from unknown client {client_address[0]}, ignoring...")
