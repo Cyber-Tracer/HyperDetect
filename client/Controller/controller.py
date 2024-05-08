@@ -31,5 +31,5 @@ def request_next_log(conn):
     '''
     conn.send(f'{KEYWORD_NEXT_LOG}'.encode())
     settings_msg = conn.recv(1024).decode()
-    malicious, filename, duration_minutes = settings_msg.split(';')
-    return malicious, filename, int(duration_minutes)
+    malicious, filename, duration_minutes, requires_admin = settings_msg.split(';')
+    return malicious, filename, int(duration_minutes), int(requires_admin)

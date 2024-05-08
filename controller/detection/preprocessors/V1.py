@@ -1,4 +1,4 @@
-from preprocessors.preprocessor import Preprocessor
+from .preprocessor import Preprocessor
 import pandas as pd
 
 class V1(Preprocessor):

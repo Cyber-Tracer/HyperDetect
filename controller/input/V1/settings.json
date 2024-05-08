@@ -1,0 +1,11 @@
+[
+    {"file":"benign_libreOfficeCalc_5min.zip", "malicious":false, "minutes":5, "name": "libreOfficeCalc", "requires_admin":false},
+    {"file":"benign_libreOfficeDraw_5min.zip", "malicious":false, "minutes":5, "name": "libreOfficeDraw", "requires_admin":false},
+    {"file":"benign_libreOfficeWriter_5min.zip", "malicious":false, "minutes":5, "name": "libreOfficeWriter", "requires_admin":false},
+    {"file":"benign_unzip_5min.zip", "malicious":false, "minutes":5, "name": "unzip", "requires_admin":false},
+    {"file":"benign_zip_5min.zip", "malicious":false, "minutes":5, "name": "zip", "requires_admin":false},
+    {"file":"benign_7zipInstallation_2min.zip", "malicious":false, "minutes":2, "name": "7zipInstallation", "requires_admin":true},
+    {"file":"benign_libreOfficeInstallUninstall_3min.zip", "malicious":false, "minutes":3, "name": "libreOfficeInstallUninstall", "requires_admin":true},
+    {"file":"benign_copyPDFs_2min.zip", "malicious":false, "minutes":2, "name": "copyPDFs", "requires_admin":false},
+    {"file":"malicious_ransomwarePOC_10min.zip", "malicious":true, "minutes":10, "name": "ransomwarePOC", "requires_admin":false}
+]

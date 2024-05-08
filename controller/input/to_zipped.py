@@ -1,6 +1,7 @@
 import os
 import zipfile
 import argparse
+import shutil
 
 def zip_subdirectories(directory, output_directory):
     # Get all subdirectories from the given directory
@@ -24,4 +25,18 @@ if __name__ == '__main__':
     parser.add_argument('--directory', type=str, help='The directory to zip subdirectories from, default: V1', default=os.path.join(os.path.dirname(__file__), 'V1/'))
     parser.add_argument('--output_directory', type=str, help='The output directory for the zipped files, default: ../input_zipped/V1', default=os.path.join(os.path.dirname(__file__), '../input_zipped/V1/'))
     args = parser.parse_args()
+    if not os.path.exists(args.directory) or not os.path.isdir(args.directory):
+        print(f"Directory {args.directory} does not exist.")
+        exit(1)
+
+    if not os.path.exists(args.output_directory) or not os.path.isdir(args.output_directory):
+        print(f"Output directory {args.output_directory} does not exist.")
+        exit(1)
+
+    if not os.path.exists(os.path.join(args.directory, 'settings.json')):
+        print(f"Directory {args.directory} does not contains settings.json.")
+        exit(1)
+
+    shutil.copy(os.path.join(args.directory, 'settings.json'), os.path.join(args.output_directory, 'settings.json'))
+    
     zip_subdirectories(args.directory, args.output_directory)
