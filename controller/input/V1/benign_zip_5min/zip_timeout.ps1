@@ -1,5 +1,5 @@
 # Define the source directory, destination zip file, and timeout in seconds
-$sourcePath = "C:\Users\Client\Documents\Archive"
+$sourcePath = "C:\Users\Client\Documents"
 $destinationZip = "output.zip"
 $currentLocation = Get-Location
 $destinationZip = Join-Path -Path $currentLocation -ChildPath $destinationZip
