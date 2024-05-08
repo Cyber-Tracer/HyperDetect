@@ -24,4 +24,5 @@ sleep $$_duration_ms_hex_$$
 
 # close output and exit logger
 output close SysCallLog
+unload vmm
 exit
