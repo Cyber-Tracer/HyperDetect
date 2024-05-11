@@ -4,7 +4,8 @@ import os
 # Defines which executable is malicious in logs marked as malicious
 executable_pname_dict = {
     'ransomwarePOC': 'RansomwarePOC.',
-    'RanSim': 'Powershell.exe',
+    'ransim': 'powershell.exe',
+    'ransim-slow': 'powershell.exe',
 }
 
 def read_file(file_path):
@@ -28,6 +29,8 @@ def classify_malicious(df, file_name):
     df['malicious'] = 0
     if malicious != 'benign':
         df.loc[df['pname'] == executable_pname_dict[executable], 'malicious'] = 1
+        print(f'Classifying {file_name} as malicious, {sum(df["malicious"])} malicious entries found')
+
     return df
 
 
@@ -42,6 +45,7 @@ def read_all_logs(version, logs_dir = '../logs'):
 
     files = []
     for version_dir in version_dirs[:version]:
+        print(f'Reading logs from {version_dir}')
         version_files = os.listdir(version_dir)
         version_files = [os.path.join(version_dir, file) for file in version_files]
         files.extend(version_files)

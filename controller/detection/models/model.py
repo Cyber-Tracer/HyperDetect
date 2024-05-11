@@ -8,16 +8,6 @@ class Model(ABC):
         self.ngram_range = ngram_range
 
     @abstractmethod
-    def train_test_split(self, df):
-        """
-        Split data into train and test set
-
-        Returns
-            train, test
-        """
-        pass
-
-    @abstractmethod
     def fit(self, X_train, y_train=None):
         """
         Train model

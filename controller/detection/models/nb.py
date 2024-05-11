@@ -1,23 +1,8 @@
 from models.model import Model
-import pandas as pd
-from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import MultinomialNB
 
 class NB(Model):
     instance = None
-
-    def train_test_split(self, df):
-        malicious_sample = df.loc[df['malicious'] == 1]
-        benign_sample = df.loc[df['malicious'] == 0].sample(n=malicious_sample.shape[0], random_state=42)
-        classifier_sample = pd.concat([malicious_sample, benign_sample])
-
-        X_train, X_test, y_train, y_test = train_test_split(classifier_sample['syscall'], classifier_sample['malicious'], test_size=0.2, random_state=42)
-
-        remaining_benign_sample = df.loc[df['malicious'] == 0].drop(benign_sample.index)
-        X_test = pd.concat([X_test, remaining_benign_sample['syscall']])
-        y_test = pd.concat([y_test, remaining_benign_sample['malicious']])
-        return X_train, X_test, y_train, y_test
-
 
     def fit(self, X_train, y_train=None):
         if y_train is None:

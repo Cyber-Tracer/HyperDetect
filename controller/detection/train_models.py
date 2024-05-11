@@ -2,6 +2,7 @@ import argparse
 from log_reader import read_all_logs
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.model_selection import train_test_split
 from preprocessors.preprocessor import Preprocessor
 from models.nb import NB
 from models.iforest import IForest
@@ -9,9 +10,18 @@ import pickle
 import os
 import pandas as pd
 
+def balance_eval_set(X_test, y_test):
+    malicious = X_test[y_test == 1]
+    benign = X_test[y_test == 0]
+    n = min(len(malicious), len(benign))
+    X_test = pd.concat([malicious.head(n), benign.head(n)])
+    y_test = pd.concat([y_test[malicious.head(n).index], y_test[benign.head(n).index]])
+    return X_test, y_test
+
 def train_model(model, df):
-    X_train, X_test, y_train, y_test =  model.train_test_split(df)
+    X_train, X_test, y_train, y_test = train_test_split(df['syscall'], df['malicious'], test_size=0.2, random_state=42)
     model.fit(X_train, y_train)
+    X_test, y_test = balance_eval_set(X_test, y_test)
     score = model.get_score(X_test, y_test)
     return (model, score)
 
@@ -26,7 +36,7 @@ def load_model(file):
     return model
 
 def get_v1_models():
-    ngrams = range(1, 8)
+    ngrams = range(1, 10)
     models = []
     for ngram in ngrams:
         m1 = NB(CountVectorizer(ngram_range=(ngram, ngram)), 'NB', 'Frequency', (ngram, ngram))
@@ -34,10 +44,11 @@ def get_v1_models():
         m3 = NB(TfidfVectorizer(ngram_range=(ngram, ngram)), 'NB', 'TFID', (ngram, ngram))
         m4 = IForest(TfidfVectorizer(ngram_range=(ngram, ngram)), 'IForest', 'TFID', (ngram, ngram))
         models.extend((m1, m2, m3, m4))
-    m1 = NB(CountVectorizer(ngram_range=(1, 8)), 'NB', 'Frequency', (1, 7))
-    m2 = IForest(CountVectorizer(ngram_range=(1, 8)), 'IForest', 'Frequency', (1, 7))
-    m3 = NB(TfidfVectorizer(ngram_range=(1, 8)), 'NB', 'TFID', (1, 7))
-    m4 = IForest(TfidfVectorizer(ngram_range=(1, 8)), 'IForest', 'TFID', (1, 7))
+    min_max = (ngrams[0], ngrams[-1])
+    m1 = NB(CountVectorizer(ngram_range=min_max), 'NB', 'Frequency', min_max)
+    m2 = IForest(CountVectorizer(ngram_range=min_max), 'IForest', 'Frequency', min_max)
+    m3 = NB(TfidfVectorizer(ngram_range=min_max), 'NB', 'TFID', min_max)
+    m4 = IForest(TfidfVectorizer(ngram_range=min_max), 'IForest', 'TFID', min_max)
     models.extend((m1, m2, m3, m4))
     return models
 
