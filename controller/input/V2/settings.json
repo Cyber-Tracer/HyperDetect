@@ -1,0 +1,6 @@
+[
+    {"file":"malicious_ransim_5min.zip", "malicious":true, "minutes":5, "name": "ransim", "requires_admin":false},
+    {"file":"malicious_ransim-slow_10min.zip", "malicious":true, "minutes":10, "name": "ransim-slow", "requires_admin":false},
+    {"file":"malicious_JavaRansomware_10min.zip", "malicious":true, "minutes":10, "name": "JavaRansomware", "requires_admin":false},
+    {"file":"benign_MpQuickScan_5min.zip", "malicious": false, "minutes": 5, "name": "WindowsDefenderScan", "requires_admin": false}
+]
