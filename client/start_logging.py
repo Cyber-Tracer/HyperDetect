@@ -8,7 +8,7 @@ import subprocess
 
 # constants
 HYPERDBG_DIR = 'C:\\HyperDbg\\hyperdbg\\release'
-CONTROLLER_IP = '192.168.1.2'
+CONTROLLER_IP = '192.168.8.3'
 CONTROLLER_PORT = 9090
 
 # parse arguments

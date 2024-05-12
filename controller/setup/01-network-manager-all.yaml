@@ -4,6 +4,7 @@ network:
   ethernets:
     eth0:
       dhcp4: no
-      addresses:
-        - 192.168.1.100/24
-      gateway4: 192.168.1.1
+      addresses: [192.168.8.3/24]
+      gateway4: 192.168.8.1
+      nameservers:
+        addresses: [192.168.8.1]
