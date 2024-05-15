@@ -4,7 +4,7 @@ from sklearn.metrics import accuracy_score
 
 class IForest(Model):
     instance = None
-    contamination = 0.1
+    contamination = 0.05
 
 
     def fit(self, X_train, y_train=None):
