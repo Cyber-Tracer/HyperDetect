@@ -1,6 +1,7 @@
 import subprocess
 import os
 import zipfile
+import glob
 
 BACKUP_TARGET = 'D:'
 FILE_BACKUP_PATH = 'D:\\FileBackup'
@@ -42,6 +43,11 @@ def recover_files():
         if not os.path.exists(recovery_dir):
             print(f"{recovery_dir} not found, creating...")
             os.makedirs(recovery_dir)
+        else:
+            # Remove existing files
+            files = glob.glob(f"{recovery_dir}/*")
+            for f in files:
+                os.remove(f)
         with zipfile.ZipFile(zip_path, 'r') as zip_ref:
             # Extract all files
             zip_ref.extractall(recovery_dir)
