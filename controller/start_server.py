@@ -139,7 +139,7 @@ def to_settings(file):
     recovery = input("Enter the recovery method (leave empty for none/client_files/volume): ")
     if recovery not in [None, 'client_files', 'volume']:
         recovery = None
-    return {'file': file, 'malicious': malicious, 'minutes': minutes, 'name': name, 'requires_admin': requires_admin}
+    return {'file': file, 'malicious': malicious, 'minutes': minutes, 'name': name, 'requires_admin': requires_admin, 'recovery': recovery}
     
 
 # parse arguments
