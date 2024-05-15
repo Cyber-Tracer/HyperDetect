@@ -1,6 +1,6 @@
 import subprocess
 import os
-import shutil
+import zipfile
 
 BACKUP_TARGET = 'D:'
 FILE_BACKUP_PATH = 'D:\\FileBackup'
@@ -37,14 +37,15 @@ def recover_files():
     """
     zips = [f for f in os.listdir(FILE_BACKUP_PATH) if f.endswith('.zip')]
     for zip_file in zips:
+        zip_path = os.path.join(FILE_BACKUP_PATH, zip_file)
         recovery_dir = os.path.join(RECOVERY_PARENT_DIR, os.path.splitext(zip_file)[0])
         if not os.path.exists(recovery_dir):
             print(f"{recovery_dir} not found, creating...")
             os.makedirs(recovery_dir)
-        shutil.rmtree(recovery_dir)
-        os.makedirs(recovery_dir)
-        shutil.unpack_archive(os.path.join(FILE_BACKUP_PATH, zip_file), recovery_dir)
-        print(f"Recovered {zip_file} to {recovery_dir}")
+        with zipfile.ZipFile(zip_path, 'r') as zip_ref:
+            # Extract all files
+            zip_ref.extractall(recovery_dir)
+            print(f"Files extracted to {recovery_dir}")
 
 
 def recover(mode):
