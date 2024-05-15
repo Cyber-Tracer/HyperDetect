@@ -5,6 +5,7 @@ import os
 import time
 from Controller.file_client import ReceiveFileException, NoFilesException
 import subprocess
+from System.recovery import recover
 
 # constants
 HYPERDBG_DIR = 'C:\\HyperDbg\\hyperdbg\\release'
@@ -46,7 +47,7 @@ try:
     while True:
         next_file = controller.request_next_file(conn, os.getcwd())
         print(f'Next file: {next_file}')
-        malicious, filename, duration_minutes, requires_admin = controller.request_next_log(conn)
+        malicious, filename, duration_minutes, requires_admin, recovery = controller.request_next_log(conn)
         logger_ds_path = os.path.join(os.getcwd(), 'logger.ds')
         hyperdbg.create_ds_file(hyperdbg.logger_ds_template_path, hyperdbg.to_logger_ds_template_dict(duration_minutes), logger_ds_path)
         hyperdbg.start_logging(HYPERDBG_DIR, logger_ds_path)
@@ -61,6 +62,8 @@ try:
         # above command is asynchronous, so we wait defined duration_minutes and rely on execute.bat to finish whithin that time.
         time.sleep(duration_minutes * 60 + 10)
         os.remove(logger_ds_path)
+        if recovery is not None:
+            recover(recovery)
 except NoFilesException:
     print('No more files to log, finish process.')
 except ReceiveFileException as e:

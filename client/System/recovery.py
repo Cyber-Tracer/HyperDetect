@@ -7,30 +7,11 @@ BACKUP_TARGET = 'D:'
 FILE_BACKUP_PATH = 'D:\\FileBackup'
 RECOVERY_PARENT_DIR = 'C:\\Users\\Client'
 
-def get_version_information():
-    """
-    use wbadmin to get the version information of the backup
-
-    Returns:
-        str: Backup time
-        str: Backup target
-        str: Version identifier
-        str: What backup can recover
-        str: Snapshot ID
-    
-    """
-    cmd_list = ['wbadmin', 'get', 'versions', f'-backupTarget:{BACKUP_TARGET}']
-    result = subprocess.run(cmd_list, capture_output=True, text=True)
-    
-    # Check if the command was successful
-    if result.returncode != 0:
-        raise ValueError("Error listing backup versions")
-    
-    # Parse the output to find the first available backup version
-    output_lines = result.stdout.split('\n')[3:8]
-    output_lines = [line.split(': ')[1] for line in output_lines]
-    
-    return output_lines
+def remove_files_in_dir(directory):
+    for root, dirs, files in os.walk(directory, topdown=False):
+        for name in files:
+            file_path = os.path.join(root, name)
+            os.remove(file_path)
 
 def recover_files():
     """
@@ -40,14 +21,13 @@ def recover_files():
     for zip_file in zips:
         zip_path = os.path.join(FILE_BACKUP_PATH, zip_file)
         recovery_dir = os.path.join(RECOVERY_PARENT_DIR, os.path.splitext(zip_file)[0])
+        print(f"Recovering {recovery_dir}...")
         if not os.path.exists(recovery_dir):
             print(f"{recovery_dir} not found, creating...")
             os.makedirs(recovery_dir)
         else:
             # Remove existing files
-            files = glob.glob(f"{recovery_dir}/*")
-            for f in files:
-                os.remove(f)
+            remove_files_in_dir(recovery_dir)
         with zipfile.ZipFile(zip_path, 'r') as zip_ref:
             # Extract all files
             zip_ref.extractall(recovery_dir)
@@ -68,7 +48,6 @@ def recover(mode):
             recover_files()
             print("File recovery complete.")
         case "volume":
-            backup_time, _, version_id, can_recover, _ = get_version_information()
             print("Not implemented yet")
         case _:
             raise ValueError("Invalid recovery mode")

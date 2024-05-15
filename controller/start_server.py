@@ -27,7 +27,7 @@ def to_log_file(log_dir, malicious, name, minutes):
     mal_str = 'malicious' if malicious else 'benign'
     return os.path.join(log_dir, f'{mal_str}_{name}_{minutes}min.log')
 
-def send_log_settings(connection, malicious, filename, duration, requires_admin=False):
+def send_log_settings(connection, malicious, filename, duration, requires_admin=False, recovery=None):
     """
     Send the log settings to the client
 
@@ -36,8 +36,10 @@ def send_log_settings(connection, malicious, filename, duration, requires_admin=
         malicious (bool): True if the file is malicious
         filename (str): The name of the file
         duration (int): The duration of each log in minutes
+        requires_admin (bool): True if the executable requires admin rights
+        recovery (str): The recovery method to use
     """
-    settings = f"{malicious};{filename};{duration};{int(requires_admin)}"
+    settings = f"{malicious};{filename};{duration};{int(requires_admin)};{recovery}"
     connection.sendall(settings.encode())
 
 
@@ -73,7 +75,7 @@ def handle_connection(connection, client_address, file_settings, log_dir):
                     print("No file was sent to client yet, cannot start logging...")
                     send_log_settings(connection, False, "NONE", 0)
                     continue
-                send_log_settings(connection, file_settings[file_idx]['malicious'], file_settings[file_idx]['name'], file_settings[file_idx]['minutes'], file_settings[file_idx]['requires_admin'])
+                send_log_settings(connection, file_settings[file_idx]['malicious'], file_settings[file_idx]['name'], file_settings[file_idx]['minutes'], file_settings[file_idx]['requires_admin'], file_settings[file_idx].get('recovery', None))
                 create_log_socket(log_file_name, client_address[0])
                 file_idx += 1
             case "test_connection":
@@ -134,6 +136,9 @@ def to_settings(file):
         return None
     malicious, name, minutes = matches.group(1) == 'malicious', matches.group(2), int(matches.group(3))
     requires_admin = input("Does the file require admin rights? (y/[n]): ").lower() == 'y'
+    recovery = input("Enter the recovery method (leave empty for none/client_files/volume): ")
+    if recovery not in [None, 'client_files', 'volume']:
+        recovery = None
     return {'file': file, 'malicious': malicious, 'minutes': minutes, 'name': name, 'requires_admin': requires_admin}
     
 
