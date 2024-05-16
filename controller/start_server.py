@@ -96,14 +96,14 @@ def create_server_socket(file_settings, log_dir):
         duration (int): The duration of each log in minutes
     """
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) # Allow reuse of address, prevent "Address already in use" error
     sock.bind((SERVER_IP, SERVER_PORT))
 
     sock.listen(1)
     try:
-        while True:
-            print('Waiting for new connection...')
-            connection, client_address = sock.accept()
-            handle_connection(connection, client_address, file_settings, log_dir)
+        print('Waiting for connection...')
+        connection, client_address = sock.accept()
+        handle_connection(connection, client_address, file_settings, log_dir)
     except KeyboardInterrupt:
         print('\nShutting down server...')
     finally:
