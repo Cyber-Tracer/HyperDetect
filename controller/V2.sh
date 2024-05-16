@@ -4,11 +4,23 @@ if mount | grep -q "/media/usb_log_volume/"; then
     echo "/media/usb_log_volume/ is already mounted."
 else
     echo "/media/usb_log_volume/ is not mounted. Mounting now..."
-    mount -t vfat /dev/sda1 /media/usb_log_volume/ -o rw,umask=0000
+    mount -t exfat /dev/sda /media/usb_log_volume/ -o rw,umask=0000
     if [ $? -eq 0 ]; then
         echo "Mount successful."
     else
-        echo "Failed to mount /dev/sda1 to /media/usb_log_volume/."
+        echo "Failed to mount /dev/sda to /media/usb_log_volume/."
         exit 1
     fi
 fi
+
+cd /home/logger/HyperDetect/controller/input
+
+python3 to_zipped.py --directory V2/ --output_directory ../input_zipped/V2/
+
+cd ..
+
+mkdir -p /media/usb_log_volume/V2
+
+su - logger -c "python3 start_server.py --input input_zipped/V2/ --log_dir /media/usb_log_volume/V2"
+
+umount /media/usb_log_volume/
