@@ -51,22 +51,17 @@ def handle_connection(connection, client_address, file_settings, log_dir):
         connection (socket): The connection socket
         client_address (tuple): The address of the client
         file_settings (list): List of dictionaries with keys: file, malicious, minutes, name, requires_admin
-        malicious (list): List of booleans indicating if the file is malicious
         log_dir (str): The directory to save the logs to
-        duration (int): The duration of each log in minutes
     """
     print("Connection established with ", client_address)
     file_idx = 0
     log_file_name = None
-    while True:
+    while file_idx < len(file_settings):
         data = connection.recv(BUFFER_SIZE).decode()
         if not data:
             break
         match data:
             case "next_file":
-                if file_idx >= len(file_settings):
-                    send_no_files(connection)
-                    continue
                 send_file(connection, file_settings[file_idx]['file'])
                 print(f"Sent {os.path.basename(file_settings[file_idx]['file'])} to {client_address}")
                 log_file_name = to_log_file(log_dir, file_settings[file_idx]['malicious'], file_settings[file_idx]['name'], file_settings[file_idx]['minutes'])
@@ -84,6 +79,7 @@ def handle_connection(connection, client_address, file_settings, log_dir):
                 print("Unknown command, closing connection to ", client_address)
                 break
     connection.close()
+    return file_idx == len(file_settings)
 
 def create_server_socket(file_settings, log_dir):
     """
@@ -100,10 +96,12 @@ def create_server_socket(file_settings, log_dir):
     sock.bind((SERVER_IP, SERVER_PORT))
 
     sock.listen(1)
+    all_sent = False
     try:
-        print('Waiting for connection...')
-        connection, client_address = sock.accept()
-        handle_connection(connection, client_address, file_settings, log_dir)
+        while not all_sent:
+            print('Waiting for connection...')
+            connection, client_address = sock.accept()
+            all_sent = handle_connection(connection, client_address, file_settings, log_dir)
     except KeyboardInterrupt:
         print('\nShutting down server...')
     finally:
