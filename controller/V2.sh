@@ -23,4 +23,10 @@ mkdir -p /media/usb_log_volume/V2
 
 su - logger -c "cd HyperDetect/controller && python3 start_server.py --input input_zipped/V2/ --log_dir /media/usb_log_volume/V2"
 
-umount /media/usb_log_volume/
+echo "Done logging!"
+
+echo "Unmounting /dev/sda..."
+sleep 5
+
+
+umount /dev/sda/
