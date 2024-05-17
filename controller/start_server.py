@@ -11,6 +11,7 @@ from file_server import send_file, send_no_files
 from log_server import create_log_socket
 import re
 import json
+import time
 
 # Constants
 BUFFER_SIZE = 1024
@@ -56,7 +57,8 @@ def handle_connection(connection, client_address, file_settings, log_dir):
     print("Connection established with ", client_address)
     file_idx = 0
     log_file_name = None
-    while file_idx < len(file_settings):
+    last_successful_request = time.time()
+    while file_idx < len(file_settings) and time.time() - last_successful_request < 60:
         data = connection.recv(BUFFER_SIZE).decode()
         if not data:
             break
@@ -76,10 +78,14 @@ def handle_connection(connection, client_address, file_settings, log_dir):
             case "test_connection":
                 connection.sendall("ACK".encode())
             case _:
-                print("Unknown command, closing connection to ", client_address)
-                break
+                print("Unknown command: ", data)
+                continue
+        last_successful_request = time.time()
+    
+    if file_idx != len(file_settings):
+        print("Client timed out, remaining files: ", len(file_settings) - file_idx)
     connection.close()
-    return file_idx == len(file_settings)
+    return file_idx
 
 def create_server_socket(file_settings, log_dir):
     """
@@ -96,12 +102,12 @@ def create_server_socket(file_settings, log_dir):
     sock.bind((SERVER_IP, SERVER_PORT))
 
     sock.listen(1)
-    all_sent = False
+    successful_logs = 0
     try:
-        while not all_sent:
-            print('Waiting for connection...')
+        while successful_logs < len(file_settings):
+            print(f'Waiting for connection, {successful_logs}/{len(file_settings)} logs completed...')
             connection, client_address = sock.accept()
-            all_sent = handle_connection(connection, client_address, file_settings, log_dir)
+            successful_logs = handle_connection(connection, client_address, file_settings[successful_logs:], log_dir)
     except KeyboardInterrupt:
         print('\nShutting down server...')
     finally:

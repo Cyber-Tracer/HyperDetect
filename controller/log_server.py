@@ -46,18 +46,16 @@ def create_log_socket(filename, client_ip):
 
     sock.listen(1)
     try:
-        while True:
-            print(f'Waiting for new logs from {client_ip}...')
-            connection, client_address = sock.accept()
-            if client_address[0] == client_ip:
-                try:
-                    manage_log_connection(connection, filename)
-                except TimeoutError:
-                    print(f"Client {client_address[0]} timed out")
-                break
-            else:
-                print(f"Received log from unknown client {client_address[0]}, ignoring...")
-        print(f"Client closed log-connection, finished logging {filename}")
+        print(f'Waiting for new logs from {client_ip}...')
+        connection, client_address = sock.accept()
+        if client_address[0] == client_ip:
+            try:
+                manage_log_connection(connection, filename)
+            except TimeoutError:
+                print(f"Client {client_address[0]} timed out")
+            print(f"Client closed log-connection, finished logging {filename}")
+        else:
+            print(f"Client {client_address[0]} tried to connect, but it is not the expected client {client_ip}")
     except KeyboardInterrupt:
         print('\nShutting down log server...')
     finally:
