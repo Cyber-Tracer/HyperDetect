@@ -57,32 +57,30 @@ def handle_connection(connection, client_address, file_settings, log_dir):
     print("Connection established with ", client_address)
     file_idx = 0
     log_file_name = None
-    last_successful_request = time.time()
-    while file_idx < len(file_settings) and time.time() - last_successful_request < 60:
-        data = connection.recv(BUFFER_SIZE).decode()
-        if not data:
-            break
-        match data:
-            case "next_file":
-                send_file(connection, file_settings[file_idx]['file'])
-                print(f"Sent {os.path.basename(file_settings[file_idx]['file'])} to {client_address}")
-                log_file_name = to_log_file(log_dir, file_settings[file_idx]['malicious'], file_settings[file_idx]['name'], file_settings[file_idx]['minutes'])
-            case "next_log":
-                if log_file_name is None:
-                    print("No file was sent to client yet, cannot start logging...")
-                    send_log_settings(connection, False, "NONE", 0)
-                    continue
-                send_log_settings(connection, file_settings[file_idx]['malicious'], file_settings[file_idx]['name'], file_settings[file_idx]['minutes'], file_settings[file_idx]['requires_admin'], file_settings[file_idx].get('recovery', None))
-                create_log_socket(log_file_name, client_address[0])
-                file_idx += 1
-            case "test_connection":
-                connection.sendall("ACK".encode())
-            case _:
-                print("Unknown command: ", data)
-                continue
-        last_successful_request = time.time()
-    
-    if file_idx != len(file_settings):
+    connection.settimeout(60)
+    try:
+        while file_idx < len(file_settings):
+            data = connection.recv(BUFFER_SIZE).decode()
+            if not data:
+                break
+            match data:
+                case "next_file":
+                    send_file(connection, file_settings[file_idx]['file'])
+                    print(f"Sent {os.path.basename(file_settings[file_idx]['file'])} to {client_address}")
+                    log_file_name = to_log_file(log_dir, file_settings[file_idx]['malicious'], file_settings[file_idx]['name'], file_settings[file_idx]['minutes'])
+                case "next_log":
+                    if log_file_name is None:
+                        print("No file was sent to client yet, cannot start logging...")
+                        send_log_settings(connection, False, "NONE", 0)
+                        continue
+                    send_log_settings(connection, file_settings[file_idx]['malicious'], file_settings[file_idx]['name'], file_settings[file_idx]['minutes'], file_settings[file_idx]['requires_admin'], file_settings[file_idx].get('recovery', None))
+                    create_log_socket(log_file_name, client_address[0])
+                    file_idx += 1
+                case "test_connection":
+                    connection.sendall("ACK".encode())
+                case _:
+                    print("Unknown command: ", data)
+    except socket.timeout:
         print("Client timed out, remaining files: ", len(file_settings) - file_idx)
     connection.close()
     return file_idx
