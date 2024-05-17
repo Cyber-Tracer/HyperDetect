@@ -1,0 +1,7 @@
+[GENERAL]
+algo=AES-CTR
+rate=0
+
+[BURST]
+duration=s10
+pause=5

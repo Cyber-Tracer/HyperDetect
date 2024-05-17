@@ -5,5 +5,7 @@
     {"file":"malicious_RAASNet-Crypto_5min.zip", "malicious":true, "minutes":5, "name": "RAASNet-Crypto", "requires_admin":false, "recovery": "client_files"},
     {"file":"malicious_ransim_5min.zip", "malicious":true, "minutes":5, "name": "ransim", "requires_admin":false, "recovery": "client_files"},
     {"file":"malicious_ransim-slow_10min.zip", "malicious":true, "minutes":10, "name": "ransim-slow", "requires_admin":false, "recovery": "client_files"},
+    {"file":"malicious_roar-AES-CTR_10min.zip", "malicious":true, "minutes":10, "name": "roar-AES-CTR", "requires_admin":false, "recovery": "client_files"},
+    {"file":"malicious_roar-ChaCha20_10min.zip", "malicious":true, "minutes":10, "name": "roar-ChaCha20", "requires_admin":false, "recovery": "client_files"},
     {"file":"benign_MpQuickScan_5min.zip", "malicious": false, "minutes": 5, "name": "WindowsDefenderScan", "requires_admin": false}
 ]

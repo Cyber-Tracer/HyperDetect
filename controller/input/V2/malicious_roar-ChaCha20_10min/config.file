@@ -1,0 +1,7 @@
+[GENERAL]
+algo=ChaCha20
+rate=0
+
+[BURST]
+duration=f1
+pause=5
