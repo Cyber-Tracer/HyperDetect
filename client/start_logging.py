@@ -2,6 +2,7 @@ from HyperDbg import hyperdbg
 from Controller import controller
 import datetime
 import os
+import shutil
 import time
 from Controller.file_client import ReceiveFileException, NoFilesException
 import subprocess
@@ -31,6 +32,7 @@ if not runnable:
 print('HyperDbg is runnable. Checking connection to controller...')
 try:
     conn = controller.create_socket(CONTROLLER_IP, CONTROLLER_PORT)
+    conn.settimeout(20)
     conn.sendall("test_connection".encode())
     conn.recv(1024).decode()
 except (ConnectionRefusedError, TimeoutError):
@@ -51,7 +53,7 @@ try:
         logger_ds_path = os.path.join(os.getcwd(), 'logger.ds')
         hyperdbg.create_ds_file(hyperdbg.logger_ds_template_path, hyperdbg.to_logger_ds_template_dict(duration_minutes), logger_ds_path)
         hyperdbg.start_logging(HYPERDBG_DIR, logger_ds_path)
-        time.sleep(10)
+        time.sleep(10) # wait for HyperDbg to start
         if requires_admin:
             # launche execute.bat in next_file as admin
             print("Launching execute.bat as admin...")
@@ -61,9 +63,16 @@ try:
             os.system(f'explorer.exe {next_file}\\execute.bat')
         # above command is asynchronous, so we wait defined duration_minutes and rely on execute.bat to finish whithin that time.
         time.sleep(duration_minutes * 60 + 10)
-        os.remove(logger_ds_path)
         if recovery is not None:
             recover(recovery)
+        try:
+            os.remove(logger_ds_path)
+        except:
+            print(f'Failed to remove {logger_ds_path}')
+        try:
+            shutil.rmtree(next_file)
+        except:
+            print(f'Failed to remove {next_file}')
 except NoFilesException:
     print('No more files to log, finish process.')
 except ReceiveFileException as e:
