@@ -81,6 +81,7 @@ def handle_connection(connection, client_address, file_settings, log_dir):
                 case _:
                     print("Unknown command: ", data)
     except socket.timeout:
+        file_idx = file_idx -1 if file_idx > 0 else 0 # Retry the last file
         print("Client timed out, remaining files: ", len(file_settings) - file_idx)
     connection.close()
     return file_idx
@@ -105,7 +106,7 @@ def create_server_socket(file_settings, log_dir):
         while successful_logs < len(file_settings):
             print(f'Waiting for connection, {successful_logs}/{len(file_settings)} logs completed...')
             connection, client_address = sock.accept()
-            successful_logs = handle_connection(connection, client_address, file_settings[successful_logs:], log_dir)
+            successful_logs += handle_connection(connection, client_address, file_settings[successful_logs:], log_dir)
     except KeyboardInterrupt:
         print('\nShutting down server...')
     finally:
