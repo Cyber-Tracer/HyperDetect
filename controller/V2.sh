@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if mount | grep -q "/media/usb_log_volume/"; then
+if mount | grep -q "/media/usb_log_volume"; then
     echo "/media/usb_log_volume/ is already mounted."
 else
     echo "/media/usb_log_volume/ is not mounted. Mounting now..."
@@ -21,6 +21,6 @@ cd ..
 
 mkdir -p /media/usb_log_volume/V2
 
-su - logger -c "python3 start_server.py --input input_zipped/V2/ --log_dir /media/usb_log_volume/V2"
+su - logger -c "cd HyperDetect/controller && python3 start_server.py --input input_zipped/V2/ --log_dir /media/usb_log_volume/V2"
 
 umount /media/usb_log_volume/
