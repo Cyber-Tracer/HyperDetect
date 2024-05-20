@@ -1,7 +1,4 @@
-import subprocess
 import os
-import zipfile
-import glob
 
 BACKUP_TARGET = 'D:'
 FILE_BACKUP_PATH = 'D:\\FileBackup'
@@ -29,7 +26,7 @@ def recover_files():
         else:
             # Remove existing files
             remove_files_in_dir(recovery_dir)
-        os.system(f'{SEVEN_ZIP_PATH} x {zip_path} -o{recovery_dir}')
+        os.system(f'"{SEVEN_ZIP_PATH}" x {zip_path} -o{recovery_dir}')
 
 
 def recover(mode):
