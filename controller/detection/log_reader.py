@@ -6,6 +6,13 @@ executable_pname_dict = {
     'ransomwarePOC': 'RansomwarePOC.',
     'ransim': 'powershell.exe',
     'ransim-slow': 'powershell.exe',
+    'JavaRansomware': 'java.exe',
+    'RAASNet-Crypto': 'payload_PyCryp',
+    'RAASNet-AES': 'payload_PyAES.',
+    'roar-AES-CTR': 'roar.exe',
+    'roar-ChaCha20': 'roar.exe',
+    'cry': 'cry.exe',
+
 }
 
 def read_file(file_path):
