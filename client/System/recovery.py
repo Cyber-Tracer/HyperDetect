@@ -6,6 +6,7 @@ import glob
 BACKUP_TARGET = 'D:'
 FILE_BACKUP_PATH = 'D:\\FileBackup'
 RECOVERY_PARENT_DIR = 'C:\\Users\\Client'
+SEVEN_ZIP_PATH = 'C:\\Program Files\\7-zip\\7z.exe'
 
 def remove_files_in_dir(directory):
     for root, dirs, files in os.walk(directory, topdown=False):
@@ -17,7 +18,7 @@ def recover_files():
     """
     Recover files from FILE_BACKUP_PATH to DIRS_TO_RECOVER
     """
-    zips = [f for f in os.listdir(FILE_BACKUP_PATH) if f.endswith('.zip')]
+    zips = [f for f in os.listdir(FILE_BACKUP_PATH) if f.endswith('.7z')]
     for zip_file in zips:
         zip_path = os.path.join(FILE_BACKUP_PATH, zip_file)
         recovery_dir = os.path.join(RECOVERY_PARENT_DIR, os.path.splitext(zip_file)[0])
@@ -28,10 +29,7 @@ def recover_files():
         else:
             # Remove existing files
             remove_files_in_dir(recovery_dir)
-        with zipfile.ZipFile(zip_path, 'r') as zip_ref:
-            # Extract all files
-            zip_ref.extractall(recovery_dir)
-            print(f"Files extracted to {recovery_dir}")
+        os.system(f'{SEVEN_ZIP_PATH} x {zip_path} -o{recovery_dir}')
 
 
 def recover(mode):
