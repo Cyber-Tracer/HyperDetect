@@ -9,11 +9,12 @@ class Preprocessor(ABC):
         Returns
             Preprocessor
         """
-        if version == 1:
-            from .V1 import V1
-            return V1()
-        else:
-            raise ValueError(f'Version {version} not supported')
+        match version:
+            case 1 | 2:
+                from .V1 import V1
+                return V1()
+            case _:
+                raise ValueError(f'Version {version} not supported')
 
     @abstractmethod
     def preprocess(self, df):
