@@ -1,11 +1,11 @@
 [
-    {"file":"malicious_cry_2min.zip", "malicious":true, "minutes":2, "name": "cry", "requires_admin":false, "recovery": "client_files"},
-    {"file":"malicious_RAASNet-Crypto_5min.zip", "malicious":true, "minutes":5, "name": "RAASNet-Crypto", "requires_admin":false, "recovery": "client_files"},
-    {"file":"malicious_ransim_5min.zip", "malicious":true, "minutes":5, "name": "ransim", "requires_admin":false, "recovery": "client_files"},
-    {"file":"malicious_JavaRansomware_10min.zip", "malicious":true, "minutes":10, "name": "JavaRansomware", "requires_admin":false, "recovery": "client_files"},
-    {"file":"malicious_RAASNet-AES_10min.zip", "malicious":true, "minutes":10, "name": "RAASNet-AES", "requires_admin":false, "recovery": "client_files"},
-    {"file":"malicious_ransim-slow_10min.zip", "malicious":true, "minutes":10, "name": "ransim-slow", "requires_admin":false, "recovery": "client_files"},
-    {"file":"malicious_roar-AES-CTR_10min.zip", "malicious":true, "minutes":10, "name": "roar-AES-CTR", "requires_admin":false, "recovery": "client_files"},
-    {"file":"malicious_roar-ChaCha20_10min.zip", "malicious":true, "minutes":10, "name": "roar-ChaCha20", "requires_admin":false, "recovery": "client_files"},
+    {"file":"malicious_cry_10min.zip", "malicious":true, "minutes":10, "name": "cry", "requires_admin":false, "recovery": "client_files"},
+    {"file":"malicious_RAASNet-Crypto_15min.zip", "malicious":true, "minutes":15, "name": "RAASNet-Crypto", "requires_admin":false, "recovery": "client_files"},
+    {"file":"malicious_ransim_10min.zip", "malicious":true, "minutes":10, "name": "ransim", "requires_admin":false, "recovery": "client_files"},
+    {"file":"malicious_JavaRansomware_15min.zip", "malicious":true, "minutes":15, "name": "JavaRansomware", "requires_admin":false, "recovery": "client_files"},
+    {"file":"malicious_RAASNet-AES_30min.zip", "malicious":true, "minutes":30, "name": "RAASNet-AES", "requires_admin":false, "recovery": "client_files"},
+    {"file":"malicious_ransim-slow_30min.zip", "malicious":true, "minutes":30, "name": "ransim-slow", "requires_admin":false, "recovery": "client_files"},
+    {"file":"malicious_roar-AES-CTR_60min.zip", "malicious":true, "minutes":60, "name": "roar-AES-CTR", "requires_admin":false, "recovery": "client_files"},
+    {"file":"malicious_roar-ChaCha20_60min.zip", "malicious":true, "minutes":60, "name": "roar-ChaCha20", "requires_admin":false, "recovery": "client_files"},
     {"file":"benign_MpQuickScan_5min.zip", "malicious": false, "minutes": 5, "name": "WindowsDefenderScan", "requires_admin": false}
 ]

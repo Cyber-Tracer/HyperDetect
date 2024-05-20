@@ -4,5 +4,5 @@ cd /d "%~dp0"
 start "" web.exe
 start "" cry.exe
 
-timeout /t 120 /nobreak
+timeout /t 600 /nobreak
 taskkill /im web.exe /f
