@@ -7,13 +7,16 @@ import time
 from Controller.file_client import ReceiveFileException, NoFilesException
 import subprocess
 from System.recovery import recover
+import threading
 
 # constants
 HYPERDBG_DIR = 'C:\\HyperDbg\\hyperdbg\\release'
 CONTROLLER_IP = '192.168.8.3'
 CONTROLLER_PORT = 9090
 
-# parse arguments
+def check_connection(conn):
+    conn.sendall("test_connection".encode())
+    conn.recv(1024).decode()
 
 # check if hyperdbg is runnable
 timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
@@ -32,9 +35,8 @@ if not runnable:
 print('HyperDbg is runnable. Checking connection to controller...')
 try:
     conn = controller.create_socket(CONTROLLER_IP, CONTROLLER_PORT)
-    conn.settimeout(20)
-    conn.sendall("test_connection".encode())
-    conn.recv(1024).decode()
+    conn.settimeout(60)
+    check_connection(conn)
 except (ConnectionRefusedError, TimeoutError):
     print(f'Failed to connect to the controller. Ensure that the controller({CONTROLLER_IP}:{CONTROLLER_PORT}) is up and enabled.')
     exit(1)
@@ -64,7 +66,13 @@ try:
         # above command is asynchronous, so we wait defined duration_minutes and rely on execute.bat to finish whithin that time.
         time.sleep(duration_minutes * 60 + 10)
         if recovery is not None:
-            recover(recovery)
+            thread = threading.Thread(target=recover, args=(recovery,))
+            thread.start()
+            while thread.is_alive():
+                # keep connection alive
+                check_connection(conn)
+                time.sleep(30)
+            thread.join()
         try:
             os.remove(logger_ds_path)
         except:
