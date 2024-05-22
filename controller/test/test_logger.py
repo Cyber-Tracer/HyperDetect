@@ -1,6 +1,6 @@
 import socket
-import time
 import random as rnd
+import time
 
 # This logger was written to simulate the behavior of the HyperDbg tcp log functionality.
 
@@ -24,25 +24,21 @@ def simulate_log(sock, logs_to_send: int, split_msg_rnd: bool = False):
                 message = tmp
                 print(f"Split occured: {message} | {remaining_msg}")
         sock.sendall(message.encode())
+
+def simulate_client_crash(sock: socket):
+    simulate_log(sock, 10)
+    print("Simulate client crash...")
+    time.sleep(20)
+    sock.close()
+    
         
+def connect_to_log_server(server_host = '0.0.0.0', server_port=8989):
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server_address = (server_host, server_port)
+    sock.connect(server_address)
+    print("Connection to log server established, start simulation...")
+    return sock
 
-# Specify the server's host name and port number
-server_host = '0.0.0.0'
-server_port = 8989
-
-# Create a TCP/IP socket
-sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-# Connect the socket to the server's port
-server_address = (server_host, server_port)
-
-print("Waiting for connection to log server...")
-while True:
-    try:
-        sock.connect(server_address)
-        print("Connection established, start simulation...")
-        simulate_log(sock, 1000, split_msg_rnd=True)
-        break
-    except socket.error as e:
-        time.sleep(5)
-        print("No connection available, retrying...")
+if __name__ == "__main__":
+    sock = connect_to_log_server()
+    simulate_log(sock, 10, split_msg_rnd=True)

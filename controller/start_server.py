@@ -7,11 +7,10 @@ It also manages the logging socket.
 import os
 import socket
 import argparse
-from file_server import send_file, send_no_files
-from log_server import create_log_socket
+from file_server import send_file
+from log_server import create_log_socket, ClientCrashedException
 import re
 import json
-import time
 
 # Constants
 BUFFER_SIZE = 1024
@@ -42,6 +41,29 @@ def send_log_settings(connection, malicious, filename, duration, requires_admin=
     """
     settings = f"{malicious};{filename};{duration};{int(requires_admin)};{recovery}"
     connection.sendall(settings.encode())
+
+def handle_client_crash(file_idx, file_settings, crashed_log_duration):
+    """
+        Handle a client crash by the method defined by on_crash in the settings
+        Possible methods:
+            - retry: Retry the last file (default)
+            - skip: Skip the last file
+            - retry_append: Retry the last file and append the logs collected for the remaining time
+    """
+    on_crash = file_settings[file_idx].get('on_crash', 'retry')
+    match on_crash:
+        case "retry":
+            print("Retrying the last file...")
+            return file_idx, file_settings
+        case "skip":
+            print("Skipping the last file...")
+            return file_idx + 1, file_settings
+        case "retry_append":
+            print("Retrying the last file and appending remaining time...")
+            file_settings[file_idx]['minutes'] = file_settings[file_idx]['minutes'] - crashed_log_duration
+            file_settings[file_idx]['write_mode'] = 'a'
+            return file_idx, file_settings
+
 
 
 def handle_connection(connection, client_address, file_settings, log_dir):
@@ -74,7 +96,7 @@ def handle_connection(connection, client_address, file_settings, log_dir):
                         send_log_settings(connection, False, "NONE", 0)
                         continue
                     send_log_settings(connection, file_settings[file_idx]['malicious'], file_settings[file_idx]['name'], file_settings[file_idx]['minutes'], file_settings[file_idx]['requires_admin'], file_settings[file_idx].get('recovery', None))
-                    create_log_socket(log_file_name, client_address[0])
+                    create_log_socket(log_file_name, client_address[0], file_settings[file_idx].get('write_mode', 'w'))
                     file_idx += 1
                 case "test_connection":
                     connection.sendall("ACK".encode())
@@ -83,6 +105,9 @@ def handle_connection(connection, client_address, file_settings, log_dir):
     except socket.timeout:
         file_idx = file_idx -1 if file_idx > 0 else 0 # Retry the last file
         print("Client timed out, remaining files: ", len(file_settings) - file_idx)
+    except ClientCrashedException as e:
+        print(f"Client {client_address[0]} crashed after {e.minutes_logged} minutes while logging {log_file_name}, handling crash...")
+        file_idx, file_settings = handle_client_crash(file_idx, file_settings, e.minutes_logged)
     connection.close()
     return file_idx
 
@@ -139,10 +164,15 @@ def to_settings(file):
         return None
     malicious, name, minutes = matches.group(1) == 'malicious', matches.group(2), int(matches.group(3))
     requires_admin = input("Does the file require admin rights? (y/[n]): ").lower() == 'y'
-    recovery = input("Enter the recovery method (leave empty for none/client_files/volume): ")
+    recovery = input("Enter the recovery method ([none => leave empty]/client_files/volume): ")
     if recovery not in [None, 'client_files', 'volume']:
         recovery = None
-    return {'file': file, 'malicious': malicious, 'minutes': minutes, 'name': name, 'requires_admin': requires_admin, 'recovery': recovery}
+    print("Recovery method: ", recovery if recovery else "None")
+    on_crash = input("Enter the on crash method ([retry]/skip/retry_append): ")
+    if on_crash not in ['retry', 'skip', 'retry_append']:
+        on_crash = 'retry'
+    print("Crash method: ", on_crash if on_crash else "retry")
+    return {'file': file, 'malicious': malicious, 'minutes': minutes, 'name': name, 'requires_admin': requires_admin, 'recovery': recovery, 'on_crash': on_crash}
     
 
 # parse arguments
