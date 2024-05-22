@@ -7,6 +7,7 @@ import time
 from Controller.file_client import ReceiveFileException, NoFilesException
 import subprocess
 from System.recovery import recover
+from System.efiguard import disable_dse
 import threading
 
 # constants
@@ -17,6 +18,11 @@ CONTROLLER_PORT = 9090
 def check_connection(conn):
     conn.sendall("test_connection".encode())
     conn.recv(1024).decode()
+
+# disable DSE
+print('Disabling DSE...')
+disable_dse()
+print('DSE disabled.')
 
 # check if hyperdbg is runnable
 timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
