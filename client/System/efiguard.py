@@ -1,6 +1,6 @@
 import os
 
-EFIGUARD_EXE_DIR = os.path.join(os.path.abspath(__file__), 'EfiDSEFix.exe')
+EFIGUARD_EXE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'EfiDSEFix.exe')
 
 def disable_dse():
     '''
