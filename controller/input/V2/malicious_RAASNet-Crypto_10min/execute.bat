@@ -3,7 +3,7 @@ cd /d "%~dp0"
 
 start "" payload_PyCrypto.exe
 
-timeout /t 900 /nobreak > NUL
+timeout /t 600 /nobreak > NUL
 
 taskkill /IM "payload_PyCrypto.exe" /F
 

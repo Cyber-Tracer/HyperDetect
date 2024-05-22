@@ -1,6 +1,6 @@
 [
     {"file":"malicious_cry_10min.zip", "malicious":true, "minutes":10, "name": "cry", "requires_admin":false, "recovery": "client_files"},
-    {"file":"malicious_RAASNet-Crypto_15min.zip", "malicious":true, "minutes":15, "name": "RAASNet-Crypto", "requires_admin":false, "recovery": "client_files"},
+    {"file":"malicious_RAASNet-Crypto_10min.zip", "malicious":true, "minutes":10, "name": "RAASNet-Crypto", "requires_admin":false, "recovery": "client_files"},
     {"file":"malicious_ransim_10min.zip", "malicious":true, "minutes":10, "name": "ransim", "requires_admin":false, "recovery": "client_files"},
     {"file":"malicious_JavaRansomware_15min.zip", "malicious":true, "minutes":15, "name": "JavaRansomware", "requires_admin":false, "recovery": "client_files"},
     {"file":"malicious_RAASNet-AES_30min.zip", "malicious":true, "minutes":30, "name": "RAASNet-AES", "requires_admin":false, "recovery": "client_files"},
