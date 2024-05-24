@@ -9,6 +9,7 @@ import subprocess
 from System.recovery import recover
 from System.efiguard import disable_dse
 import threading
+import subprocess
 
 # constants
 HYPERDBG_DIR = 'C:\\HyperDbg\\hyperdbg\\release'
@@ -68,7 +69,7 @@ try:
             subprocess.run(f'{next_file}\\execute.bat', shell=True)
         else:
             # launche execute.bat in next_file as non-admin
-            os.system(f'explorer.exe {next_file}\\execute.bat')
+            subprocess.run(f'runas /user:Client /savecred "{next_file}\\execute.bat"', shell=True)
         # above command is asynchronous, so we wait defined duration_minutes and rely on execute.bat to finish whithin that time.
         time.sleep(duration_minutes * 60 + 10)
         if recovery is not None:
