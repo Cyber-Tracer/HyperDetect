@@ -15,6 +15,7 @@ import subprocess
 HYPERDBG_DIR = 'C:\\HyperDbg\\hyperdbg\\release'
 CONTROLLER_IP = '192.168.8.3'
 CONTROLLER_PORT = 9090
+CLIENT_PW = 'VmiHell2'
 
 def check_connection(conn):
     conn.sendall("test_connection".encode())
@@ -69,7 +70,9 @@ try:
             subprocess.run(f'{next_file}\\execute.bat', shell=True)
         else:
             # launche execute.bat in next_file as non-admin
-            subprocess.run(f'runas /user:Client /savecred "{next_file}\\execute.bat"', shell=True)
+            proc = subprocess.Popen(f'runas /user:Client "{next_file}\\execute.bat"', shell=True)
+            proc.stdin.write(CLIENT_PW + '\n')
+            proc.stdin.flush()
         # above command is asynchronous, so we wait defined duration_minutes and rely on execute.bat to finish whithin that time.
         time.sleep(duration_minutes * 60 + 10)
         if recovery is not None:
