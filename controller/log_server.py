@@ -39,7 +39,7 @@ def manage_log_connection(conn, file_name, write_mode='w'):
                 data_str = data_str.replace("\n", "\n"+ timestamp)
                 f.write(data_str)
             f.truncate(f.tell() - len(timestamp))  # Remove the last timestamp
-        except socket.timeout:
+        except (socket.timeout, ConnectionResetError):
             f.truncate(f.tell() - len(timestamp))  # Remove the last timestamp
             minutes_logged = get_minute_diff(initial_timestamp, timestamp)
             conn.close()
