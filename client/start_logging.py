@@ -17,7 +17,7 @@ HYPERDBG_DIR = 'C:\\HyperDbg\\hyperdbg\\release'
 PSEXEC_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), '.\\System\\PsExec.exe')
 CONTROLLER_IP = '192.168.8.3'
 CONTROLLER_PORT = 9090
-CLIENT_PW = 'VmiHell2'
+SAMPLE_DIR = 'C:\\Users\\Client\\Downloads'
 
 def check_connection(conn):
     conn.sendall("test_connection".encode())
@@ -27,6 +27,11 @@ def check_connection(conn):
 print('Disabling DSE...')
 disable_dse()
 print('DSE disabled.')
+
+# check if cred file exists
+if not runas.cred_file_exists():
+    runas.store_creds()
+
 
 # check if hyperdbg is runnable
 timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
@@ -59,7 +64,7 @@ print('Start logging...')
 # request file from controller
 try:
     while True:
-        next_file = controller.request_next_file(conn, os.getcwd())
+        next_file = controller.request_next_file(conn, SAMPLE_DIR)
         print(f'Next file: {next_file}')
         malicious, filename, duration_minutes, requires_admin, recovery = controller.request_next_log(conn)
         logger_ds_path = os.path.join(os.getcwd(), 'logger.ds')

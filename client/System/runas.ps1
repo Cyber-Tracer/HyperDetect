@@ -5,4 +5,5 @@ param (
 
 # Import the credentials
 $Credential = Import-Clixml -Path $CredentialPath
-Start-Process cmd.exe "/c $BatFilePath" -Credential $Credential
+$dir = Split-Path -Path $BatFilePath
+Start-Process "$BatFilePath" -Credential $Credential -LoadUserProfile -WorkingDirectory $dir
