@@ -102,7 +102,7 @@ def handle_connection(connection, client_address, file_settings, log_dir):
                     connection.sendall("ACK".encode())
                 case _:
                     print("Unknown command: ", data)
-    except socket.timeout:
+    except (socket.timeout, ConnectionResetError):
         file_idx = file_idx -1 if file_idx > 0 else 0 # Retry the last file
         print("Client timed out, remaining files: ", len(file_settings) - file_idx)
     except ClientCrashedException as e:
