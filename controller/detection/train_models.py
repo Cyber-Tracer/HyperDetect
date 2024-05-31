@@ -13,6 +13,7 @@ import pickle
 import os
 import pandas as pd
 import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 def train_test_split_df(df):
     return train_test_split(df['syscall'], df['malicious'], test_size=0.2, random_state=42)
@@ -70,6 +71,17 @@ def load_scores(version, output_dir):
     score_dir = os.path.join(output_dir, f'V{version}')
     return load_scores_from_dir(score_dir)
     
+def train_eval_model(model, X_train, X_test, y_train, y_test):
+    start = time.time()
+    model.fit(X_train, y_train)
+    duration = time.time() - start
+    y_pred = model.predict(X_test)
+    score = accuracy_score(y_pred, y_test)
+    f1 = f1_score(y_pred, y_test)
+    recall = recall_score(y_pred, y_test)
+    precision = precision_score(y_pred, y_test)
+    print(f"Model: {model} - F1 Score: {f1}")
+    return model, [score, duration, f1, recall, precision]
 
 
 def main(version, log_dir, output_dir):
@@ -84,20 +96,17 @@ def main(version, log_dir, output_dir):
 
     X_train, X_test, y_train, y_test = train_test_split_df(df)
     models = get_instantiated_version_models(version)
-    properties = []
+    properties = {}
     for model in models:
-        start = time.time()
-        model.fit(X_train, y_train)
-        duration = time.time() - start
-        y_pred = model.predict(X_test)
-        score = accuracy_score(y_pred, y_test)
-        f1 = f1_score(y_pred, y_test)
-        recall = recall_score(y_pred, y_test)
-        precision = precision_score(y_pred, y_test)
-        print(f"Model: {model} - F1 Score: {f1}")
-        properties.append([score, duration, f1, recall, precision])
-        save_model(model, version, output_dir)
-    df = to_scores_df(models, properties, ['Score', 'Duration', 'F1', 'Recall', 'Precision'])
+        properties[model] = None
+
+    with ThreadPoolExecutor(max_workers=4) as executor:
+        futures = [executor.submit(train_eval_model, model, X_train, X_test, y_train, y_test) for model in models]
+        for future in as_completed(futures):
+            model, model_properties = future.result()
+            properties[model] = model_properties
+            save_model(model, version, output_dir)
+    df = to_scores_df(models, properties.values(), ['Score', 'Duration', 'F1', 'Recall', 'Precision'])
     df.to_csv(os.path.join(output_dir, 'test_scores.csv'), index=False)
     print("Top 3 models: ")
     print(df.head(3))
