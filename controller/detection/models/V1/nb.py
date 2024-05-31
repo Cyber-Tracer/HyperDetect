@@ -1,4 +1,4 @@
-from models.model import Model
+from ..model import Model
 from sklearn.naive_bayes import MultinomialNB
 
 class NB(Model):
@@ -16,9 +16,9 @@ class NB(Model):
             raise ValueError("Model is not fitted.")
         X_test = self.scaler.transform(X_test)
         return self.instance.predict(X_test)
+    
+    def get_model_name(self):
+        return 'NB'
 
-    def get_score(self, X_test, y_test):
-        if self.instance is None:
-            raise ValueError("Model is not fitted.")
-        X_test = self.scaler.transform(X_test)
-        return self.instance.score(X_test, y_test)
+    def get_model_type(self):
+        return 'Classification'

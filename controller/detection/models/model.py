@@ -1,11 +1,8 @@
 from abc import ABC, abstractmethod
 
 class Model(ABC):
-    def __init__(self, scaler, model_type: str, scaler_type: str, ngram_range: tuple):
+    def __init__(self, scaler):
         self.scaler = scaler
-        self.model_type = model_type
-        self.scaler_type = scaler_type
-        self.ngram_range = ngram_range
 
     @abstractmethod
     def fit(self, X_train, y_train=None):
@@ -28,23 +25,18 @@ class Model(ABC):
         pass
 
     @abstractmethod
-    def get_score(self, X_test, y_test):
-        """
-        Get score
-
-        Returns
-            score in range [0, 1]
-        """
+    def get_model_name(self):
         pass
 
+    @abstractmethod
     def get_model_type(self):
-        return self.model_type
+        pass
     
     def get_scaler_type(self):
-        return self.scaler_type
+        return self.scaler.__class__.__name__
     
     def get_ngram_range(self):
-        return self.ngram_range
+        return self.scaler.ngram_range
     
     def __str__(self) -> str:
-        return f"{self.model_type}_{self.scaler_type}_{self.ngram_range[0]}_{self.ngram_range[1]}"
+        return f"{self.get_model_name()}_{self.get_scaler_type()}_{self.get_ngram_range()[0]}_{self.get_ngram_range()[1]}"

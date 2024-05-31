@@ -5,7 +5,7 @@ class V1(Preprocessor):
     def list_to_str(self, lst: list):
         return ' '.join(lst)
 
-    def group_by_pid_and_timestamp(self, df, floor='10s'):
+    def group_by_pid_and_timestamp(self, df, floor='5s'):
         """
             Group df by pid and timestamp, aggregating syscalls in a list
 

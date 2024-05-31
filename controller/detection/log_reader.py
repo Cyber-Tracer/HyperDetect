@@ -1,5 +1,5 @@
 import pandas as pd
-import os
+import os, re
 
 # Defines which executable is malicious in logs marked as malicious
 executable_pname_dict = {
@@ -48,10 +48,12 @@ def read_all_logs(version, logs_dir = '../logs'):
         Returns
             df(timestamp, pname, pid, tid, syscall, rcx, rdx, r8, r9, malicious)
     """
-    version_dirs = [ f.path for f in os.scandir(logs_dir) if f.is_dir() ]
+    version_dirs = [ f.path for f in os.scandir(logs_dir) if f.is_dir() and bool(re.match(r'V\d+', f.name)) ]
 
     files = []
-    for version_dir in version_dirs[:version]:
+    for version_dir in version_dirs:
+        if int(os.path.basename(version_dir)[1]) > version:
+            continue
         print(f'Reading logs from {version_dir}')
         version_files = os.listdir(version_dir)
         version_files = [os.path.join(version_dir, file) for file in version_files]

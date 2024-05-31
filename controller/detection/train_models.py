@@ -3,10 +3,12 @@ from log_reader import read_all_logs
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import f1_score
+from sklearn.metrics import f1_score, accuracy_score, recall_score, precision_score
 from preprocessors.preprocessor import Preprocessor
-from models.nb import NB
-from models.iforest import IForest
+from models.V1.nb import NB
+from models.V1.iforest import IForest
+from models.V1.lof import LOF
+from models.V1.rf import RF
 import pickle
 import os
 import pandas as pd
@@ -26,23 +28,20 @@ def load_model(file):
     return model
 
 def get_v1_models():
-    ngrams = range(1, 10)
+    ngrams = range(1, 6)
+    scalers = [CountVectorizer, TfidfVectorizer]
     models = []
-    for ngram in ngrams:
-        m1 = NB(CountVectorizer(ngram_range=(ngram, ngram)), 'NB', 'Frequency', (ngram, ngram))
-        m2 = IForest(CountVectorizer(ngram_range=(ngram, ngram)), 'IForest', 'Frequency', (ngram, ngram))
-        m3 = NB(TfidfVectorizer(ngram_range=(ngram, ngram)), 'NB', 'TF-IDF', (ngram, ngram))
-        m4 = IForest(TfidfVectorizer(ngram_range=(ngram, ngram)), 'IForest', 'TF-IDF', (ngram, ngram))
-        models.extend((m1, m2, m3, m4))
-    min_max = (ngrams[0], ngrams[-1])
-    m1 = NB(CountVectorizer(ngram_range=min_max), 'NB', 'Frequency', min_max)
-    m2 = IForest(CountVectorizer(ngram_range=min_max), 'IForest', 'Frequency', min_max)
-    m3 = NB(TfidfVectorizer(ngram_range=min_max), 'NB', 'TF-IDF', min_max)
-    m4 = IForest(TfidfVectorizer(ngram_range=min_max), 'IForest', 'TF-IDF', min_max)
-    models.extend((m1, m2, m3, m4))
+    token_pattern = r'\b\w+\b'
+    for scaler in scalers:
+        for ngram in ngrams:
+            models.append(NB(scaler(ngram_range=(ngram, ngram), token_pattern=token_pattern)))
+            models.append(IForest(scaler(ngram_range=(ngram, ngram), token_pattern=token_pattern)))
+            models.append(LOF(scaler(ngram_range=(ngram, ngram), token_pattern=token_pattern)))
+            models.append(RF(scaler(ngram_range=(ngram, ngram), token_pattern=token_pattern)))
+
     return models
 
-def get_version_models(version):
+def get_instantiated_version_models(version):
     match version:
         case 1 | 2:
             return get_v1_models()
@@ -52,19 +51,25 @@ def get_version_models(version):
 def to_scores_df(models, properties, properties_names=None):
     data = []
     for model, model_properties in zip(models, properties):
-        cols = [model.get_model_type(), model.get_scaler_type(), model.get_ngram_range()[0], model.get_ngram_range()[1]]
+        cols = [model.get_model_name(), model.get_model_type(), model.get_scaler_type(), model.get_ngram_range()[0], model.get_ngram_range()[1]]
         data.append(cols + model_properties)
-    columns = ['Model', 'Scaler', 'Min Ngram', 'Max Ngram'] + properties_names
+    columns = ['Model', 'Model_Type', 'Scaler', 'Min Ngram', 'Max Ngram'] + properties_names
     df = pd.DataFrame(data, columns=columns)
     df = df.sort_values(by='Score', ascending=False)
     return df
 
-def load_scores(version, output_dir):
-    file = os.path.join(output_dir, f'V{version}', 'test_scores.csv')
+def load_scores_from_dir(output_dir):
+    file = os.path.join(output_dir, 'test_scores.csv')
     if not os.path.exists(file):
         return None
     df = pd.read_csv(file)
     return df
+
+
+def load_scores(version, output_dir):
+    score_dir = os.path.join(output_dir, f'V{version}')
+    return load_scores_from_dir(score_dir)
+    
 
 
 def main(version, log_dir, output_dir):
@@ -77,20 +82,22 @@ def main(version, log_dir, output_dir):
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
-    models = get_version_models(version)
+    X_train, X_test, y_train, y_test = train_test_split_df(df)
+    models = get_instantiated_version_models(version)
     properties = []
     for model in models:
-        X_train, X_test, y_train, y_test = train_test_split_df(df)
-        model.fit(X_train, y_train)
         start = time.time()
-        score = model.get_score(X_test, y_test)
+        model.fit(X_train, y_train)
         duration = time.time() - start
         y_pred = model.predict(X_test)
+        score = accuracy_score(y_pred, y_test)
         f1 = f1_score(y_pred, y_test)
-        print(f"Model: {model} - Score: {score}")
-        properties.append([score, duration, f1])
+        recall = recall_score(y_pred, y_test)
+        precision = precision_score(y_pred, y_test)
+        print(f"Model: {model} - F1 Score: {f1}")
+        properties.append([score, duration, f1, recall, precision])
         save_model(model, version, output_dir)
-    df = to_scores_df(models, properties, ['Score', 'Duration', 'F1'])
+    df = to_scores_df(models, properties, ['Score', 'Duration', 'F1', 'Recall', 'Precision'])
     df.to_csv(os.path.join(output_dir, 'test_scores.csv'), index=False)
     print("Top 3 models: ")
     print(df.head(3))
