@@ -4,10 +4,7 @@ from sklearn.ensemble import RandomForestClassifier
 class RF(Model):
     instance = None
 
-    def fit(self, X_train, y_train=None):
-        if y_train is None:
-            raise ValueError("y_train is required for naive bayes model.")
-        X_train = self.vectorizer.fit_transform(X_train).toarray()
+    def fit_vectorized(self, X_train, y_train):
         self.instance = RandomForestClassifier()
         self.instance.fit(X_train, y_train)
 

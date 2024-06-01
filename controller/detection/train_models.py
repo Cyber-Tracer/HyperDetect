@@ -5,15 +5,12 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import f1_score, accuracy_score, recall_score, precision_score
 from preprocessors.preprocessor import Preprocessor
-from models.V1.nb import NB
-from models.V1.iforest import IForest
-from models.V1.lof import LOF
-from models.V1.rf import RF
+from models.model import Model
 import pickle
 import os
 import pandas as pd
 import time
-from concurrent.futures import ThreadPoolExecutor, as_completed
+import concurrent.futures as cf
 
 def train_test_split_df(df):
     return train_test_split(df['syscall'], df['malicious'], test_size=0.2, random_state=42)
@@ -28,36 +25,26 @@ def load_model(file):
         model = pickle.load(f)
     return model
 
-def get_v1_models():
+def get_instantiated_models(version):
     ngrams = range(1, 6)
     vectorizers = [CountVectorizer, TfidfVectorizer]
-    models = []
+    models = Model.get_model_classes(version=version)
+    instantiated_models = []
     token_pattern = r'\b\w+\b'
     for vectorizer in vectorizers:
         for ngram in ngrams:
-            models.append(NB(vectorizer(ngram_range=(ngram, ngram), token_pattern=token_pattern)))
-            models.append(IForest(vectorizer(ngram_range=(ngram, ngram), token_pattern=token_pattern)))
-            models.append(LOF(vectorizer(ngram_range=(ngram, ngram), token_pattern=token_pattern)))
-            models.append(RF(vectorizer(ngram_range=(ngram, ngram), token_pattern=token_pattern)))
+            for model in models:
+                instantiated_models.append(model(vectorizer(ngram_range=(ngram, ngram), token_pattern=token_pattern)))
+    return instantiated_models
 
-    return models
-
-def get_instantiated_version_models(version):
-    match version:
-        case 1 | 2:
-            return get_v1_models()
-        case _:
-            raise ValueError("Invalid version")
-
-def to_scores_df(models, properties, properties_names=None):
-    data = []
-    for model, model_properties in zip(models, properties):
-        cols = [model.get_model_name(), model.get_model_type(), model.get_vectorizer_type(), model.get_ngram_range()[0], model.get_ngram_range()[1]]
-        data.append(cols + model_properties)
-    columns = ['Model', 'Model_Type', 'Scaler', 'Min Ngram', 'Max Ngram'] + properties_names
-    df = pd.DataFrame(data, columns=columns)
-    df = df.sort_values(by='Score', ascending=False)
-    return df
+def to_model_properties(model):
+    return {
+        'Model': model.get_model_name(),
+        'Model_Type': model.get_model_type(),
+        'Scaler': model.get_vectorizer_type(),
+        'Min Ngram': model.get_ngram_range()[0],
+        'Max Ngram': model.get_ngram_range()[1]
+    }
 
 def load_scores_from_dir(output_dir):
     file = os.path.join(output_dir, 'test_scores.csv')
@@ -81,7 +68,7 @@ def train_eval_model(model, X_train, X_test, y_train, y_test):
     recall = recall_score(y_pred, y_test)
     precision = precision_score(y_pred, y_test)
     print(f"Model: {model} - F1 Score: {f1}")
-    return model, [score, duration, f1, recall, precision]
+    return model, {"Score": score, "Duration": duration, "F1": f1, "Recall": recall, "Precision": precision}
 
 
 def main(version, log_dir, output_dir):
@@ -95,21 +82,23 @@ def main(version, log_dir, output_dir):
         os.makedirs(output_dir)
 
     X_train, X_test, y_train, y_test = train_test_split_df(df)
-    models = get_instantiated_version_models(version)
-    properties = {}
-    for model in models:
-        properties[model] = None
+    scores = []
+    models = get_instantiated_models(version)
 
-    with ThreadPoolExecutor(max_workers=4) as executor:
+    with cf.ThreadPoolExecutor(max_workers=4) as executor:
         futures = [executor.submit(train_eval_model, model, X_train, X_test, y_train, y_test) for model in models]
-        for future in as_completed(futures):
-            model, model_properties = future.result()
-            properties[model] = model_properties
+        for future in cf.as_completed(futures):
+            model, model_scores = future.result()
+            row = model_scores | to_model_properties(model)
+            scores.append(row)
             save_model(model, version, output_dir)
-    df = to_scores_df(models, properties.values(), ['Score', 'Duration', 'F1', 'Recall', 'Precision'])
-    df.to_csv(os.path.join(output_dir, 'test_scores.csv'), index=False)
+        
+        cf.wait(futures)
+    scores_df = pd.DataFrame(scores)
+    scores_df = scores_df.sort_values(by='F1', ascending=False)
+    scores_df.to_csv(os.path.join(output_dir, 'test_scores.csv'), index=False)
     print("Top 3 models: ")
-    print(df.head(3))
+    print(scores_df.head(3))
 
 
 
