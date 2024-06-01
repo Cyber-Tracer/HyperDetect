@@ -41,7 +41,7 @@ param_combinations = [dict(zip(keys, v)) for v in itertools.product(*values)]
 print(f"Total number of parameter combinations: {len(param_combinations)}")
 
 best_params = None
-best_scaler = None
+best_vectorizer = None
 best_ngram = 0
 best_f1 = 0
 
@@ -62,14 +62,14 @@ def train_and_evaluate(params):
     return f1, params, vectorizer.ngram_range[0], vectorizer.__class__.__name__
 
 def update_best_params(results):
-    global best_f1, best_params, best_ngram, best_scaler
-    f1, params, ngram, scaler = results
-    print(f"Scaler: {scaler}, Ngram: {ngram}, Parameters: {params}, F1 Score: {f1}")
+    global best_f1, best_params, best_ngram, best_vectorizer
+    f1, params, ngram, vectorizer = results
+    print(f"Scaler: {vectorizer}, Ngram: {ngram}, Parameters: {params}, F1 Score: {f1}")
     if f1 > best_f1:
         best_f1 = f1
         best_params = params
         best_ngram = ngram
-        best_scaler = scaler
+        best_vectorizer = vectorizer
 print("Starting grid search...")
 start = time.time()
 
@@ -86,4 +86,4 @@ print(f"Grid search completed in {time.time() - start} seconds")
 print(f"Best parameters found: {best_params}")
 print(f"Best F1 Score found: {best_f1}")
 print(f"Best Ngram found: {best_ngram}")
-print(f"Best Scaler found: {best_scaler}")
+print(f"Best Scaler found: {best_vectorizer}")

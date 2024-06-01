@@ -30,15 +30,15 @@ def load_model(file):
 
 def get_v1_models():
     ngrams = range(1, 6)
-    scalers = [CountVectorizer, TfidfVectorizer]
+    vectorizers = [CountVectorizer, TfidfVectorizer]
     models = []
     token_pattern = r'\b\w+\b'
-    for scaler in scalers:
+    for vectorizer in vectorizers:
         for ngram in ngrams:
-            models.append(NB(scaler(ngram_range=(ngram, ngram), token_pattern=token_pattern)))
-            models.append(IForest(scaler(ngram_range=(ngram, ngram), token_pattern=token_pattern)))
-            models.append(LOF(scaler(ngram_range=(ngram, ngram), token_pattern=token_pattern)))
-            models.append(RF(scaler(ngram_range=(ngram, ngram), token_pattern=token_pattern)))
+            models.append(NB(vectorizer(ngram_range=(ngram, ngram), token_pattern=token_pattern)))
+            models.append(IForest(vectorizer(ngram_range=(ngram, ngram), token_pattern=token_pattern)))
+            models.append(LOF(vectorizer(ngram_range=(ngram, ngram), token_pattern=token_pattern)))
+            models.append(RF(vectorizer(ngram_range=(ngram, ngram), token_pattern=token_pattern)))
 
     return models
 
@@ -52,7 +52,7 @@ def get_instantiated_version_models(version):
 def to_scores_df(models, properties, properties_names=None):
     data = []
     for model, model_properties in zip(models, properties):
-        cols = [model.get_model_name(), model.get_model_type(), model.get_scaler_type(), model.get_ngram_range()[0], model.get_ngram_range()[1]]
+        cols = [model.get_model_name(), model.get_model_type(), model.get_vectorizer_type(), model.get_ngram_range()[0], model.get_ngram_range()[1]]
         data.append(cols + model_properties)
     columns = ['Model', 'Model_Type', 'Scaler', 'Min Ngram', 'Max Ngram'] + properties_names
     df = pd.DataFrame(data, columns=columns)
