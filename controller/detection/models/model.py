@@ -4,6 +4,7 @@ from scipy.sparse import csr_matrix
 class Model(ABC):
     def __init__(self, vectorizer):
         self.vectorizer = vectorizer
+        self.instance = None
 
     @staticmethod
     def get_model_classes(version):
@@ -44,15 +45,11 @@ class Model(ABC):
         X_train = self.transform(X_train)
         self.fit_vectorized(X_train, y_train)
 
-    @abstractmethod
     def predict(self, X_test):
-        """
-        Predict
-
-        Returns
-            prediction
-        """
-        pass
+        if self.instance is None:
+            raise ValueError("Model is not fitted.")
+        X_test = self.transform(X_test)
+        return self.instance.predict(X_test)
 
     @abstractmethod
     def get_model_name(self):

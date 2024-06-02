@@ -2,7 +2,6 @@ from ..model import Model
 from sklearn.neighbors import LocalOutlierFactor
 
 class LOF(Model):
-    instance = None
     contamination = 0.093
 
     def fit_vectorized(self, X_train, y_train=None):
@@ -14,14 +13,14 @@ class LOF(Model):
         y_train = y_train[y_train == 0]
         super().fit(X_train, y_train)
 
-    def predict(self, X_test):
-        if self.instance is None:
-            raise ValueError("Model is not fitted.")
-        X_test = self.transform(X_test)
-        pred = self.instance.predict(X_test)
+    def pred_to_binary(self, pred):
         pred[pred == 1] = 0
         pred[pred == -1] = 1
         return pred
+
+    def predict(self, X_test):
+        pred = super().predict(X_test)
+        return self.pred_to_binary(pred)
     
     def get_model_name(self):
         return 'LOF'
