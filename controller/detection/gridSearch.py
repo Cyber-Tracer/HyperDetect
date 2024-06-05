@@ -92,7 +92,6 @@ version_param_grid = {
                 'ngram': ngram_range,
                 'vectorizer': vectorizers,
                 'n_neighbors': [10, 20, 50],
-                'algorithm': ['auto', 'ball_tree', 'kd_tree'],
                 'metric': ['euclidean', 'manhattan', 'minkowski'],
             }
         )
