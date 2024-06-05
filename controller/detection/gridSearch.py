@@ -18,7 +18,7 @@ import time
 # Parse command line arguments
 parser = argparse.ArgumentParser()
 parser.add_argument("--version", type=int, help="Version number", default=1)
-parser.add_argument("--model", type=str, help="Model to use", choices=['IForest', 'LOF'])
+parser.add_argument("--model", type=str, help="Model to use", choices=['IForest', 'LOF', 'NB', 'RF'])
 args = parser.parse_args()
 
 # Get the version number from command line arguments
@@ -36,8 +36,6 @@ df = preprocessor.preprocess(df)
 
 # Split the data into training and test sets
 X_train, X_test, y_train, y_test = train_test_split_df(df)
-X_train = X_train[y_train == 0]
-y_train = y_train[y_train == 0]
 
 # Define the parameters to be tuned
 
@@ -56,7 +54,8 @@ version_param_grid = {
                 'n_estimators': [50, 100, 200],
                 'max_samples': ['auto', 0.5, 1.0],
                 'max_features': [0.5, 0.75, 1.0],
-            }
+            },
+            False
         ),
         'LOF': (
             PyodLOF,
@@ -68,7 +67,8 @@ version_param_grid = {
                 'n_neighbors': [10, 20, 50],
                 'algorithm': ['auto', 'ball_tree', 'kd_tree'],
                 'metric': ['euclidean', 'manhattan', 'minkowski'],
-            }
+            },
+            False
         )
     },
     2: {
@@ -82,7 +82,8 @@ version_param_grid = {
                 'n_estimators': [50, 100, 200],
                 'max_samples': ['auto', 0.5, 1.0],
                 'max_features': [0.5, 0.75, 1.0],
-            }
+            },
+            False
         ),
         'LOF': (
             SklearnLOF,
@@ -93,7 +94,28 @@ version_param_grid = {
                 'vectorizer': vectorizers,
                 'n_neighbors': [10, 20, 50],
                 'metric': ['euclidean', 'manhattan', 'minkowski'],
-            }
+            },
+            False
+        ),
+        'NB': (
+            MultinomialNB,
+            {
+                'ngram': ngram_range,
+                'vectorizer': vectorizers,
+                'alpha': [0.2, 1.0, 2.0],
+            },
+            True
+        ),
+        'RF': (
+            RandomForestClassifier,
+            {
+                'ngram': ngram_range,
+                'vectorizer': vectorizers,
+                'n_estimators': [50, 100, 200],
+                'criterion': ['gini', 'entropy', 'log_loss'],
+                'max_features': ['log2', 'sqrt', None],
+            },
+            True
         )
     }
 }
@@ -101,6 +123,11 @@ version_param_grid = {
 # Define the parameters to be tuned
 model_class = version_param_grid[version][model_name][0]
 param_grid = version_param_grid[version][model_name][1]
+is_classifier = version_param_grid[version][model_name][2]
+
+if not is_classifier:
+    X_train = X_train[y_train == 0]
+    y_train = y_train[y_train == 0]
 
 # Get all parameter names and their corresponding values
 keys, values = zip(*param_grid.items())
@@ -123,7 +150,10 @@ def train_and_evaluate(params):
     vectorizer.fit(X_train)
     model = model_wrapper(vectorizer)
     X_train_vectorized = model.transform(X_train)
-    instance.fit(X_train_vectorized)
+    if is_classifier:
+        instance.fit(X_train_vectorized, y_train)
+    else:
+        instance.fit(X_train_vectorized)
     model.instance = instance
     y_test_pred = model.predict(X_test)
     f1 = f1_score(y_test, y_test_pred)
