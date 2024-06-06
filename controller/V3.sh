@@ -15,6 +15,8 @@ fi
 
 cd /home/logger/HyperDetect/controller/input
 
+mkdir -p ../input_zipped/V3/
+
 python3 to_zipped.py --directory V3/ --output_directory ../input_zipped/V3/
 
 cd ..
