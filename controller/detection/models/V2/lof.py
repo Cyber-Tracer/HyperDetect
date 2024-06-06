@@ -5,7 +5,7 @@ class LOF(Model):
     contamination = 0.093
 
     def fit_vectorized(self, X_train, y_train=None):
-        self.instance = LocalOutlierFactor(contamination=self.contamination, novelty=True, n_neighbors=10, algorithm='auto', metric='euclidean')
+        self.instance = LocalOutlierFactor(contamination=self.contamination, novelty=True, n_neighbors=10, algorithm='auto', metric='manhattan')
         self.instance.fit(X_train)
 
     def fit(self, X_train, y_train=None):

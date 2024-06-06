@@ -1,0 +1,59 @@
+Reading logs from ../logs/V1
+Reading logs from ../logs/V2-1
+Reading logs from ../logs/V2
+Classifying malicious_ransomwarePOC_10min_1.log as malicious, 13383 malicious entries found
+Classifying malicious_ransomwarePOC_10min.log as malicious, 14477 malicious entries found
+Classifying malicious_JavaRansomware_30min.log as malicious, 45982 malicious entries found
+Classifying malicious_RAASNet-AES_60min.log as malicious, 10348 malicious entries found
+Classifying malicious_ransim_20min.log as malicious, 23227 malicious entries found
+Classifying malicious_RAASNet-Crypto_20min.log as malicious, 20069 malicious entries found
+Classifying malicious_roar-ChaCha20_60min.log as malicious, 33968 malicious entries found
+Classifying malicious_roar-AES-CTR_60min.log as malicious, 71676 malicious entries found
+Classifying malicious_ransim-slow_60min.log as malicious, 23621 malicious entries found
+Classifying malicious_cry_20min.log as malicious, 8185 malicious entries found
+Classifying malicious_ransim-slow_30min.log as malicious, 8586 malicious entries found
+Classifying malicious_ransim_10min.log as malicious, 3221 malicious entries found
+Classifying malicious_roar-ChaCha20_60min.log as malicious, 32965 malicious entries found
+Classifying malicious_JavaRansomware_15min.log as malicious, 15232 malicious entries found
+Classifying malicious_cry_10min.log as malicious, 4776 malicious entries found
+Classifying malicious_roar-AES-CTR_60min.log as malicious, 47470 malicious entries found
+Classifying malicious_RAASNet-Crypto_15min.log as malicious, 10145 malicious entries found
+Classifying malicious_RAASNet-AES_30min.log as malicious, 4252 malicious entries found
+Start gridsearch for NB, version 2. Grid:  {'ngram': range(1, 6), 'vectorizer': [<class 'sklearn.feature_extraction.text.CountVectorizer'>, <class 'sklearn.feature_extraction.text.TfidfVectorizer'>], 'alpha': [0.2, 1.0, 2.0]}
+Total number of parameter combinations: 30
+Starting grid search...
+Scaler: CountVectorizer, Ngram: 1, Parameters: {'alpha': 1.0}, F1 Score: 0.841648590021692
+Scaler: TfidfVectorizer, Ngram: 1, Parameters: {'alpha': 1.0}, F1 Score: 0.8522483940042827
+Scaler: CountVectorizer, Ngram: 1, Parameters: {'alpha': 2.0}, F1 Score: 0.839549002601908
+Scaler: TfidfVectorizer, Ngram: 1, Parameters: {'alpha': 0.2}, F1 Score: 0.8586162440911044
+Scaler: CountVectorizer, Ngram: 1, Parameters: {'alpha': 0.2}, F1 Score: 0.8442516268980477
+Scaler: TfidfVectorizer, Ngram: 1, Parameters: {'alpha': 2.0}, F1 Score: 0.8508997429305912
+Scaler: TfidfVectorizer, Ngram: 2, Parameters: {'alpha': 2.0}, F1 Score: 0.9194741166803615
+Scaler: CountVectorizer, Ngram: 2, Parameters: {'alpha': 2.0}, F1 Score: 0.9540636042402827
+Scaler: CountVectorizer, Ngram: 3, Parameters: {'alpha': 0.2}, F1 Score: 0.953405017921147
+Scaler: TfidfVectorizer, Ngram: 2, Parameters: {'alpha': 0.2}, F1 Score: 0.9333871618893823
+Scaler: CountVectorizer, Ngram: 2, Parameters: {'alpha': 1.0}, F1 Score: 0.957513768686074
+Scaler: CountVectorizer, Ngram: 2, Parameters: {'alpha': 0.2}, F1 Score: 0.9574803149606299
+Scaler: CountVectorizer, Ngram: 3, Parameters: {'alpha': 2.0}, F1 Score: 0.9528377298161471
+Scaler: CountVectorizer, Ngram: 3, Parameters: {'alpha': 1.0}, F1 Score: 0.9529130087789306
+Scaler: TfidfVectorizer, Ngram: 2, Parameters: {'alpha': 1.0}, F1 Score: 0.9225122349102773
+Scaler: TfidfVectorizer, Ngram: 3, Parameters: {'alpha': 0.2}, F1 Score: 0.9399919452275474
+Scaler: TfidfVectorizer, Ngram: 3, Parameters: {'alpha': 1.0}, F1 Score: 0.927596193628465
+Scaler: CountVectorizer, Ngram: 4, Parameters: {'alpha': 0.2}, F1 Score: 0.950446791226645
+Scaler: TfidfVectorizer, Ngram: 3, Parameters: {'alpha': 2.0}, F1 Score: 0.9171920975199663
+Scaler: CountVectorizer, Ngram: 4, Parameters: {'alpha': 1.0}, F1 Score: 0.9484787018255578
+Scaler: CountVectorizer, Ngram: 4, Parameters: {'alpha': 2.0}, F1 Score: 0.9475822836245429
+Scaler: TfidfVectorizer, Ngram: 4, Parameters: {'alpha': 0.2}, F1 Score: 0.9432098765432099
+Scaler: TfidfVectorizer, Ngram: 4, Parameters: {'alpha': 1.0}, F1 Score: 0.927487352445194
+Scaler: TfidfVectorizer, Ngram: 4, Parameters: {'alpha': 2.0}, F1 Score: 0.9174861051731509
+Scaler: CountVectorizer, Ngram: 5, Parameters: {'alpha': 1.0}, F1 Score: 0.9345484672742337
+Scaler: CountVectorizer, Ngram: 5, Parameters: {'alpha': 2.0}, F1 Score: 0.9328914664457332
+Scaler: CountVectorizer, Ngram: 5, Parameters: {'alpha': 0.2}, F1 Score: 0.9359768690623709
+Scaler: TfidfVectorizer, Ngram: 5, Parameters: {'alpha': 1.0}, F1 Score: 0.9294952023362536
+Scaler: TfidfVectorizer, Ngram: 5, Parameters: {'alpha': 2.0}, F1 Score: 0.9226240538267452
+Scaler: TfidfVectorizer, Ngram: 5, Parameters: {'alpha': 0.2}, F1 Score: 0.9354304635761589
+Grid search completed in 49.263991832733154 seconds
+Best parameters found: {'alpha': 1.0}
+Best F1 Score found: 0.957513768686074
+Best Ngram found: 2
+Best Scaler found: CountVectorizer

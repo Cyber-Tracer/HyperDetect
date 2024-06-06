@@ -1,0 +1,299 @@
+Reading logs from ../logs/V1
+Reading logs from ../logs/V2
+Reading logs from ../logs/V2-1
+Classifying malicious_ransomwarePOC_10min_1.log as malicious, 13383 malicious entries found
+Classifying malicious_ransomwarePOC_10min.log as malicious, 14477 malicious entries found
+Classifying malicious_roar-ChaCha20_60min.log as malicious, 32965 malicious entries found
+Classifying malicious_roar-AES-CTR_60min.log as malicious, 47470 malicious entries found
+Classifying malicious_JavaRansomware_15min.log as malicious, 15232 malicious entries found
+Classifying malicious_RAASNet-Crypto_15min.log as malicious, 10145 malicious entries found
+Classifying malicious_ransim_10min.log as malicious, 3221 malicious entries found
+Classifying malicious_ransim-slow_30min.log as malicious, 8586 malicious entries found
+Classifying malicious_cry_10min.log as malicious, 4776 malicious entries found
+Classifying malicious_RAASNet-AES_30min.log as malicious, 4252 malicious entries found
+Classifying malicious_roar-ChaCha20_60min.log as malicious, 33968 malicious entries found
+Classifying malicious_ransim-slow_60min.log as malicious, 23621 malicious entries found
+Classifying malicious_roar-AES-CTR_60min.log as malicious, 71676 malicious entries found
+Classifying malicious_ransim_20min.log as malicious, 23227 malicious entries found
+Classifying malicious_cry_20min.log as malicious, 8185 malicious entries found
+Classifying malicious_RAASNet-Crypto_20min.log as malicious, 20069 malicious entries found
+Classifying malicious_RAASNet-AES_60min.log as malicious, 10348 malicious entries found
+Classifying malicious_JavaRansomware_30min.log as malicious, 45982 malicious entries found
+Start gridsearch for RF, version 2. Grid:  {'ngram': range(1, 6), 'vectorizer': [<class 'sklearn.feature_extraction.text.CountVectorizer'>, <class 'sklearn.feature_extraction.text.TfidfVectorizer'>], 'n_estimators': [50, 100, 200], 'criterion': ['gini', 'entropy', 'log_loss'], 'max_features': ['log2', 'sqrt', None]}
+Total number of parameter combinations: 270
+Starting grid search...
+Scaler: CountVectorizer, Ngram: 1, Parameters: {'n_estimators': 50, 'criterion': 'log_loss', 'max_features': 'log2'}, F1 Score: 0.9718875502008032
+Scaler: CountVectorizer, Ngram: 1, Parameters: {'n_estimators': 50, 'criterion': 'entropy', 'max_features': 'log2'}, F1 Score: 0.9738219895287958
+Scaler: CountVectorizer, Ngram: 1, Parameters: {'n_estimators': 50, 'criterion': 'entropy', 'max_features': 'sqrt'}, F1 Score: 0.9738430583501007
+Scaler: CountVectorizer, Ngram: 1, Parameters: {'n_estimators': 50, 'criterion': 'log_loss', 'max_features': 'sqrt'}, F1 Score: 0.9714744877460828
+Scaler: CountVectorizer, Ngram: 1, Parameters: {'n_estimators': 50, 'criterion': 'gini', 'max_features': 'sqrt'}, F1 Score: 0.9714973906061822
+Scaler: CountVectorizer, Ngram: 1, Parameters: {'n_estimators': 50, 'criterion': 'gini', 'max_features': 'log2'}, F1 Score: 0.9726468222043443
+Scaler: CountVectorizer, Ngram: 1, Parameters: {'n_estimators': 100, 'criterion': 'entropy', 'max_features': 'sqrt'}, F1 Score: 0.9714744877460828
+Scaler: CountVectorizer, Ngram: 1, Parameters: {'n_estimators': 100, 'criterion': 'log_loss', 'max_features': 'log2'}, F1 Score: 0.97429718875502
+Scaler: CountVectorizer, Ngram: 1, Parameters: {'n_estimators': 100, 'criterion': 'gini', 'max_features': 'log2'}, F1 Score: 0.9722780233025311
+Scaler: CountVectorizer, Ngram: 1, Parameters: {'n_estimators': 100, 'criterion': 'entropy', 'max_features': 'log2'}, F1 Score: 0.9718423169750603
+Scaler: CountVectorizer, Ngram: 1, Parameters: {'n_estimators': 100, 'criterion': 'gini', 'max_features': 'sqrt'}, F1 Score: 0.9715430861723446
+Scaler: CountVectorizer, Ngram: 1, Parameters: {'n_estimators': 100, 'criterion': 'log_loss', 'max_features': 'sqrt'}, F1 Score: 0.9718875502008032
+Scaler: CountVectorizer, Ngram: 1, Parameters: {'n_estimators': 50, 'criterion': 'log_loss', 'max_features': None}, F1 Score: 0.9620758483033932
+Scaler: CountVectorizer, Ngram: 1, Parameters: {'n_estimators': 50, 'criterion': 'entropy', 'max_features': None}, F1 Score: 0.963258785942492
+Scaler: TfidfVectorizer, Ngram: 1, Parameters: {'n_estimators': 50, 'criterion': 'gini', 'max_features': 'log2'}, F1 Score: 0.9628116060482224
+Scaler: TfidfVectorizer, Ngram: 1, Parameters: {'n_estimators': 50, 'criterion': 'gini', 'max_features': 'sqrt'}, F1 Score: 0.9619320507572656
+Scaler: CountVectorizer, Ngram: 1, Parameters: {'n_estimators': 50, 'criterion': 'gini', 'max_features': None}, F1 Score: 0.9622266401590457
+Scaler: CountVectorizer, Ngram: 1, Parameters: {'n_estimators': 200, 'criterion': 'entropy', 'max_features': 'log2'}, F1 Score: 0.9730815588589795
+Scaler: CountVectorizer, Ngram: 1, Parameters: {'n_estimators': 200, 'criterion': 'gini', 'max_features': 'sqrt'}, F1 Score: 0.9714744877460828
+Scaler: CountVectorizer, Ngram: 1, Parameters: {'n_estimators': 200, 'criterion': 'gini', 'max_features': 'log2'}, F1 Score: 0.9730382293762575
+Scaler: TfidfVectorizer, Ngram: 1, Parameters: {'n_estimators': 50, 'criterion': 'entropy', 'max_features': 'log2'}, F1 Score: 0.9623875715453802
+Scaler: TfidfVectorizer, Ngram: 1, Parameters: {'n_estimators': 50, 'criterion': 'entropy', 'max_features': 'sqrt'}, F1 Score: 0.9628116060482224
+Scaler: CountVectorizer, Ngram: 1, Parameters: {'n_estimators': 200, 'criterion': 'entropy', 'max_features': 'sqrt'}, F1 Score: 0.9707180104292018
+Scaler: CountVectorizer, Ngram: 1, Parameters: {'n_estimators': 200, 'criterion': 'log_loss', 'max_features': 'sqrt'}, F1 Score: 0.9718196457326892
+Scaler: CountVectorizer, Ngram: 1, Parameters: {'n_estimators': 200, 'criterion': 'log_loss', 'max_features': 'log2'}, F1 Score: 0.9718875502008032
+Scaler: TfidfVectorizer, Ngram: 1, Parameters: {'n_estimators': 50, 'criterion': 'log_loss', 'max_features': 'log2'}, F1 Score: 0.9631751227495908
+Scaler: TfidfVectorizer, Ngram: 1, Parameters: {'n_estimators': 50, 'criterion': 'log_loss', 'max_features': 'sqrt'}, F1 Score: 0.9615384615384616
+Scaler: CountVectorizer, Ngram: 1, Parameters: {'n_estimators': 100, 'criterion': 'entropy', 'max_features': None}, F1 Score: 0.9640287769784173
+Scaler: TfidfVectorizer, Ngram: 1, Parameters: {'n_estimators': 100, 'criterion': 'gini', 'max_features': 'log2'}, F1 Score: 0.9640522875816994
+Scaler: TfidfVectorizer, Ngram: 1, Parameters: {'n_estimators': 100, 'criterion': 'gini', 'max_features': 'sqrt'}, F1 Score: 0.964022894521668
+Scaler: TfidfVectorizer, Ngram: 1, Parameters: {'n_estimators': 100, 'criterion': 'entropy', 'max_features': 'log2'}, F1 Score: 0.964022894521668
+Scaler: TfidfVectorizer, Ngram: 1, Parameters: {'n_estimators': 100, 'criterion': 'entropy', 'max_features': 'sqrt'}, F1 Score: 0.9648117839607201
+Scaler: TfidfVectorizer, Ngram: 1, Parameters: {'n_estimators': 100, 'criterion': 'log_loss', 'max_features': 'log2'}, F1 Score: 0.9627811860940695
+Scaler: CountVectorizer, Ngram: 1, Parameters: {'n_estimators': 100, 'criterion': 'log_loss', 'max_features': None}, F1 Score: 0.9629038691663343
+Scaler: TfidfVectorizer, Ngram: 1, Parameters: {'n_estimators': 100, 'criterion': 'log_loss', 'max_features': 'sqrt'}, F1 Score: 0.9623259623259623
+Scaler: CountVectorizer, Ngram: 1, Parameters: {'n_estimators': 100, 'criterion': 'gini', 'max_features': None}, F1 Score: 0.9598409542743539
+Scaler: TfidfVectorizer, Ngram: 1, Parameters: {'n_estimators': 200, 'criterion': 'gini', 'max_features': 'log2'}, F1 Score: 0.9623875715453802
+Scaler: TfidfVectorizer, Ngram: 1, Parameters: {'n_estimators': 200, 'criterion': 'gini', 'max_features': 'sqrt'}, F1 Score: 0.964022894521668
+Scaler: TfidfVectorizer, Ngram: 1, Parameters: {'n_estimators': 200, 'criterion': 'entropy', 'max_features': 'log2'}, F1 Score: 0.9648117839607201
+Scaler: TfidfVectorizer, Ngram: 1, Parameters: {'n_estimators': 50, 'criterion': 'entropy', 'max_features': None}, F1 Score: 0.9603596240294238
+Scaler: TfidfVectorizer, Ngram: 1, Parameters: {'n_estimators': 200, 'criterion': 'entropy', 'max_features': 'sqrt'}, F1 Score: 0.9631449631449631
+Scaler: TfidfVectorizer, Ngram: 1, Parameters: {'n_estimators': 50, 'criterion': 'log_loss', 'max_features': None}, F1 Score: 0.9570903146710258
+Scaler: TfidfVectorizer, Ngram: 1, Parameters: {'n_estimators': 200, 'criterion': 'log_loss', 'max_features': 'log2'}, F1 Score: 0.9635693819074908
+Scaler: TfidfVectorizer, Ngram: 1, Parameters: {'n_estimators': 50, 'criterion': 'gini', 'max_features': None}, F1 Score: 0.9538963688290494
+Scaler: CountVectorizer, Ngram: 2, Parameters: {'n_estimators': 50, 'criterion': 'gini', 'max_features': 'sqrt'}, F1 Score: 0.9659591509811775
+Scaler: CountVectorizer, Ngram: 2, Parameters: {'n_estimators': 50, 'criterion': 'gini', 'max_features': 'log2'}, F1 Score: 0.9694041867954911
+Scaler: TfidfVectorizer, Ngram: 1, Parameters: {'n_estimators': 200, 'criterion': 'log_loss', 'max_features': 'sqrt'}, F1 Score: 0.9636289333878219
+Scaler: CountVectorizer, Ngram: 2, Parameters: {'n_estimators': 50, 'criterion': 'entropy', 'max_features': 'sqrt'}, F1 Score: 0.9658771577679647
+Scaler: CountVectorizer, Ngram: 2, Parameters: {'n_estimators': 50, 'criterion': 'entropy', 'max_features': 'log2'}, F1 Score: 0.9694041867954911
+Scaler: CountVectorizer, Ngram: 1, Parameters: {'n_estimators': 200, 'criterion': 'entropy', 'max_features': None}, F1 Score: 0.9640287769784173
+Scaler: CountVectorizer, Ngram: 1, Parameters: {'n_estimators': 200, 'criterion': 'log_loss', 'max_features': None}, F1 Score: 0.9636436276468238
+Scaler: CountVectorizer, Ngram: 2, Parameters: {'n_estimators': 50, 'criterion': 'log_loss', 'max_features': 'sqrt'}, F1 Score: 0.9678972712680578
+Scaler: CountVectorizer, Ngram: 2, Parameters: {'n_estimators': 50, 'criterion': 'log_loss', 'max_features': 'log2'}, F1 Score: 0.9710378117457763
+Scaler: CountVectorizer, Ngram: 2, Parameters: {'n_estimators': 100, 'criterion': 'gini', 'max_features': 'sqrt'}, F1 Score: 0.9643572286744093
+Scaler: TfidfVectorizer, Ngram: 1, Parameters: {'n_estimators': 100, 'criterion': 'entropy', 'max_features': None}, F1 Score: 0.9583333333333334
+Scaler: CountVectorizer, Ngram: 2, Parameters: {'n_estimators': 100, 'criterion': 'entropy', 'max_features': 'sqrt'}, F1 Score: 0.9682092555331991
+Scaler: CountVectorizer, Ngram: 2, Parameters: {'n_estimators': 100, 'criterion': 'gini', 'max_features': 'log2'}, F1 Score: 0.9709911361804996
+Scaler: CountVectorizer, Ngram: 1, Parameters: {'n_estimators': 200, 'criterion': 'gini', 'max_features': None}, F1 Score: 0.9606048547552726
+Scaler: TfidfVectorizer, Ngram: 1, Parameters: {'n_estimators': 100, 'criterion': 'log_loss', 'max_features': None}, F1 Score: 0.9571603427172583
+Scaler: CountVectorizer, Ngram: 2, Parameters: {'n_estimators': 100, 'criterion': 'entropy', 'max_features': 'log2'}, F1 Score: 0.9706237424547284
+Scaler: CountVectorizer, Ngram: 2, Parameters: {'n_estimators': 100, 'criterion': 'log_loss', 'max_features': 'sqrt'}, F1 Score: 0.9670152855993563
+Scaler: TfidfVectorizer, Ngram: 1, Parameters: {'n_estimators': 100, 'criterion': 'gini', 'max_features': None}, F1 Score: 0.9539714867617108
+Scaler: CountVectorizer, Ngram: 2, Parameters: {'n_estimators': 100, 'criterion': 'log_loss', 'max_features': 'log2'}, F1 Score: 0.9686242960579243
+Scaler: CountVectorizer, Ngram: 2, Parameters: {'n_estimators': 50, 'criterion': 'entropy', 'max_features': None}, F1 Score: 0.9572171131547381
+Scaler: CountVectorizer, Ngram: 2, Parameters: {'n_estimators': 50, 'criterion': 'log_loss', 'max_features': None}, F1 Score: 0.958016793282687
+Scaler: CountVectorizer, Ngram: 2, Parameters: {'n_estimators': 200, 'criterion': 'gini', 'max_features': 'sqrt'}, F1 Score: 0.967121090617482
+Scaler: CountVectorizer, Ngram: 2, Parameters: {'n_estimators': 50, 'criterion': 'gini', 'max_features': None}, F1 Score: 0.9596484218937276
+Scaler: CountVectorizer, Ngram: 2, Parameters: {'n_estimators': 200, 'criterion': 'gini', 'max_features': 'log2'}, F1 Score: 0.9714055577929923
+Scaler: CountVectorizer, Ngram: 2, Parameters: {'n_estimators': 200, 'criterion': 'entropy', 'max_features': 'sqrt'}, F1 Score: 0.9650462032944958
+Scaler: TfidfVectorizer, Ngram: 2, Parameters: {'n_estimators': 50, 'criterion': 'gini', 'max_features': 'sqrt'}, F1 Score: 0.9624796084828712
+Scaler: TfidfVectorizer, Ngram: 2, Parameters: {'n_estimators': 50, 'criterion': 'gini', 'max_features': 'log2'}, F1 Score: 0.957455268389662
+Scaler: CountVectorizer, Ngram: 2, Parameters: {'n_estimators': 200, 'criterion': 'entropy', 'max_features': 'log2'}, F1 Score: 0.9706237424547284
+Scaler: CountVectorizer, Ngram: 2, Parameters: {'n_estimators': 200, 'criterion': 'log_loss', 'max_features': 'sqrt'}, F1 Score: 0.9674306393244874
+Scaler: TfidfVectorizer, Ngram: 2, Parameters: {'n_estimators': 50, 'criterion': 'entropy', 'max_features': 'sqrt'}, F1 Score: 0.9554494828957836
+Scaler: TfidfVectorizer, Ngram: 2, Parameters: {'n_estimators': 50, 'criterion': 'entropy', 'max_features': 'log2'}, F1 Score: 0.9586973788721207
+Scaler: TfidfVectorizer, Ngram: 2, Parameters: {'n_estimators': 50, 'criterion': 'log_loss', 'max_features': 'log2'}, F1 Score: 0.9566600397614314
+Scaler: CountVectorizer, Ngram: 2, Parameters: {'n_estimators': 200, 'criterion': 'log_loss', 'max_features': 'log2'}, F1 Score: 0.9698189134808853
+Scaler: TfidfVectorizer, Ngram: 2, Parameters: {'n_estimators': 50, 'criterion': 'log_loss', 'max_features': 'sqrt'}, F1 Score: 0.9570405727923628
+Scaler: TfidfVectorizer, Ngram: 1, Parameters: {'n_estimators': 200, 'criterion': 'entropy', 'max_features': None}, F1 Score: 0.9571253572886893
+Scaler: TfidfVectorizer, Ngram: 1, Parameters: {'n_estimators': 200, 'criterion': 'log_loss', 'max_features': None}, F1 Score: 0.957942017149857
+Scaler: TfidfVectorizer, Ngram: 2, Parameters: {'n_estimators': 100, 'criterion': 'gini', 'max_features': 'sqrt'}, F1 Score: 0.9571088165210484
+Scaler: TfidfVectorizer, Ngram: 2, Parameters: {'n_estimators': 100, 'criterion': 'gini', 'max_features': 'log2'}, F1 Score: 0.9573874950219037
+Scaler: TfidfVectorizer, Ngram: 2, Parameters: {'n_estimators': 100, 'criterion': 'entropy', 'max_features': 'sqrt'}, F1 Score: 0.9604243166054671
+Scaler: TfidfVectorizer, Ngram: 2, Parameters: {'n_estimators': 100, 'criterion': 'entropy', 'max_features': 'log2'}, F1 Score: 0.9636882904936761
+Scaler: CountVectorizer, Ngram: 2, Parameters: {'n_estimators': 100, 'criterion': 'entropy', 'max_features': None}, F1 Score: 0.9587505006007209
+Scaler: TfidfVectorizer, Ngram: 2, Parameters: {'n_estimators': 100, 'criterion': 'log_loss', 'max_features': 'sqrt'}, F1 Score: 0.9615699100572364
+Scaler: TfidfVectorizer, Ngram: 2, Parameters: {'n_estimators': 100, 'criterion': 'log_loss', 'max_features': 'log2'}, F1 Score: 0.9582504970178927
+Scaler: TfidfVectorizer, Ngram: 1, Parameters: {'n_estimators': 200, 'criterion': 'gini', 'max_features': None}, F1 Score: 0.9539714867617108
+Scaler: CountVectorizer, Ngram: 2, Parameters: {'n_estimators': 100, 'criterion': 'log_loss', 'max_features': None}, F1 Score: 0.9572171131547381
+Scaler: TfidfVectorizer, Ngram: 2, Parameters: {'n_estimators': 200, 'criterion': 'gini', 'max_features': 'sqrt'}, F1 Score: 0.9608163265306122
+Scaler: CountVectorizer, Ngram: 2, Parameters: {'n_estimators': 100, 'criterion': 'gini', 'max_features': None}, F1 Score: 0.9596484218937276
+Scaler: TfidfVectorizer, Ngram: 2, Parameters: {'n_estimators': 200, 'criterion': 'gini', 'max_features': 'log2'}, F1 Score: 0.9575228265184597
+Scaler: TfidfVectorizer, Ngram: 2, Parameters: {'n_estimators': 50, 'criterion': 'entropy', 'max_features': None}, F1 Score: 0.9462793473935536
+Scaler: TfidfVectorizer, Ngram: 2, Parameters: {'n_estimators': 200, 'criterion': 'entropy', 'max_features': 'sqrt'}, F1 Score: 0.9611769513690233
+Scaler: TfidfVectorizer, Ngram: 2, Parameters: {'n_estimators': 50, 'criterion': 'log_loss', 'max_features': None}, F1 Score: 0.953469387755102
+Scaler: TfidfVectorizer, Ngram: 2, Parameters: {'n_estimators': 200, 'criterion': 'entropy', 'max_features': 'log2'}, F1 Score: 0.9628419763168641
+Scaler: CountVectorizer, Ngram: 3, Parameters: {'n_estimators': 50, 'criterion': 'gini', 'max_features': 'sqrt'}, F1 Score: 0.9576547231270358
+Scaler: CountVectorizer, Ngram: 3, Parameters: {'n_estimators': 50, 'criterion': 'gini', 'max_features': 'log2'}, F1 Score: 0.9554556599918267
+Scaler: TfidfVectorizer, Ngram: 2, Parameters: {'n_estimators': 200, 'criterion': 'log_loss', 'max_features': 'sqrt'}, F1 Score: 0.9570063694267515
+Scaler: TfidfVectorizer, Ngram: 2, Parameters: {'n_estimators': 50, 'criterion': 'gini', 'max_features': None}, F1 Score: 0.9526143790849673
+Scaler: TfidfVectorizer, Ngram: 2, Parameters: {'n_estimators': 200, 'criterion': 'log_loss', 'max_features': 'log2'}, F1 Score: 0.9627811860940695
+Scaler: CountVectorizer, Ngram: 3, Parameters: {'n_estimators': 50, 'criterion': 'entropy', 'max_features': 'log2'}, F1 Score: 0.9582992641046607
+Scaler: CountVectorizer, Ngram: 3, Parameters: {'n_estimators': 50, 'criterion': 'entropy', 'max_features': 'sqrt'}, F1 Score: 0.9582992641046607
+Scaler: CountVectorizer, Ngram: 3, Parameters: {'n_estimators': 50, 'criterion': 'log_loss', 'max_features': 'sqrt'}, F1 Score: 0.9563086974275214
+Scaler: CountVectorizer, Ngram: 3, Parameters: {'n_estimators': 50, 'criterion': 'log_loss', 'max_features': 'log2'}, F1 Score: 0.9578732106339468
+Scaler: CountVectorizer, Ngram: 3, Parameters: {'n_estimators': 100, 'criterion': 'gini', 'max_features': 'sqrt'}, F1 Score: 0.9580448065173116
+Scaler: CountVectorizer, Ngram: 3, Parameters: {'n_estimators': 100, 'criterion': 'gini', 'max_features': 'log2'}, F1 Score: 0.9563086974275214
+Scaler: CountVectorizer, Ngram: 3, Parameters: {'n_estimators': 100, 'criterion': 'entropy', 'max_features': 'log2'}, F1 Score: 0.9575856443719413
+Scaler: CountVectorizer, Ngram: 2, Parameters: {'n_estimators': 200, 'criterion': 'entropy', 'max_features': None}, F1 Score: 0.9571828731492596
+Scaler: CountVectorizer, Ngram: 3, Parameters: {'n_estimators': 100, 'criterion': 'entropy', 'max_features': 'sqrt'}, F1 Score: 0.9559543230016313
+Scaler: CountVectorizer, Ngram: 2, Parameters: {'n_estimators': 200, 'criterion': 'log_loss', 'max_features': None}, F1 Score: 0.9571828731492596
+Scaler: TfidfVectorizer, Ngram: 2, Parameters: {'n_estimators': 100, 'criterion': 'entropy', 'max_features': None}, F1 Score: 0.9525368248772504
+Scaler: TfidfVectorizer, Ngram: 2, Parameters: {'n_estimators': 100, 'criterion': 'log_loss', 'max_features': None}, F1 Score: 0.9529652351738241
+Scaler: CountVectorizer, Ngram: 3, Parameters: {'n_estimators': 100, 'criterion': 'log_loss', 'max_features': 'sqrt'}, F1 Score: 0.957942017149857
+Scaler: CountVectorizer, Ngram: 3, Parameters: {'n_estimators': 100, 'criterion': 'log_loss', 'max_features': 'log2'}, F1 Score: 0.955846279640229
+Scaler: TfidfVectorizer, Ngram: 2, Parameters: {'n_estimators': 100, 'criterion': 'gini', 'max_features': None}, F1 Score: 0.9479125248508946
+Scaler: CountVectorizer, Ngram: 2, Parameters: {'n_estimators': 200, 'criterion': 'gini', 'max_features': None}, F1 Score: 0.957667731629393
+Scaler: CountVectorizer, Ngram: 3, Parameters: {'n_estimators': 50, 'criterion': 'entropy', 'max_features': None}, F1 Score: 0.9542857142857143
+Scaler: CountVectorizer, Ngram: 3, Parameters: {'n_estimators': 50, 'criterion': 'gini', 'max_features': None}, F1 Score: 0.9552481692432873
+Scaler: CountVectorizer, Ngram: 3, Parameters: {'n_estimators': 50, 'criterion': 'log_loss', 'max_features': None}, F1 Score: 0.9542857142857143
+Scaler: CountVectorizer, Ngram: 3, Parameters: {'n_estimators': 200, 'criterion': 'gini', 'max_features': 'sqrt'}, F1 Score: 0.9568052159739201
+Scaler: TfidfVectorizer, Ngram: 3, Parameters: {'n_estimators': 50, 'criterion': 'gini', 'max_features': 'log2'}, F1 Score: 0.9576547231270358
+Scaler: TfidfVectorizer, Ngram: 3, Parameters: {'n_estimators': 50, 'criterion': 'gini', 'max_features': 'sqrt'}, F1 Score: 0.9560260586319218
+Scaler: CountVectorizer, Ngram: 3, Parameters: {'n_estimators': 200, 'criterion': 'gini', 'max_features': 'log2'}, F1 Score: 0.9583333333333334
+Scaler: CountVectorizer, Ngram: 3, Parameters: {'n_estimators': 200, 'criterion': 'entropy', 'max_features': 'sqrt'}, F1 Score: 0.9587586770110249
+Scaler: TfidfVectorizer, Ngram: 3, Parameters: {'n_estimators': 50, 'criterion': 'entropy', 'max_features': 'sqrt'}, F1 Score: 0.9559902200488998
+Scaler: CountVectorizer, Ngram: 3, Parameters: {'n_estimators': 200, 'criterion': 'entropy', 'max_features': 'log2'}, F1 Score: 0.9575163398692811
+Scaler: TfidfVectorizer, Ngram: 3, Parameters: {'n_estimators': 50, 'criterion': 'entropy', 'max_features': 'log2'}, F1 Score: 0.9572997153314355
+Scaler: CountVectorizer, Ngram: 3, Parameters: {'n_estimators': 200, 'criterion': 'log_loss', 'max_features': 'sqrt'}, F1 Score: 0.9568052159739201
+Scaler: TfidfVectorizer, Ngram: 3, Parameters: {'n_estimators': 50, 'criterion': 'log_loss', 'max_features': 'sqrt'}, F1 Score: 0.9572301425661914
+Scaler: TfidfVectorizer, Ngram: 3, Parameters: {'n_estimators': 50, 'criterion': 'log_loss', 'max_features': 'log2'}, F1 Score: 0.9559902200488998
+Scaler: CountVectorizer, Ngram: 3, Parameters: {'n_estimators': 200, 'criterion': 'log_loss', 'max_features': 'log2'}, F1 Score: 0.9566639411283728
+Scaler: TfidfVectorizer, Ngram: 3, Parameters: {'n_estimators': 100, 'criterion': 'gini', 'max_features': 'sqrt'}, F1 Score: 0.9563799429270281
+Scaler: TfidfVectorizer, Ngram: 3, Parameters: {'n_estimators': 100, 'criterion': 'gini', 'max_features': 'log2'}, F1 Score: 0.9564509564509565
+Scaler: TfidfVectorizer, Ngram: 3, Parameters: {'n_estimators': 100, 'criterion': 'entropy', 'max_features': 'log2'}, F1 Score: 0.9571952710966164
+Scaler: TfidfVectorizer, Ngram: 3, Parameters: {'n_estimators': 100, 'criterion': 'entropy', 'max_features': 'sqrt'}, F1 Score: 0.9563799429270281
+Scaler: TfidfVectorizer, Ngram: 2, Parameters: {'n_estimators': 200, 'criterion': 'entropy', 'max_features': None}, F1 Score: 0.9478710704337445
+Scaler: TfidfVectorizer, Ngram: 3, Parameters: {'n_estimators': 100, 'criterion': 'log_loss', 'max_features': 'sqrt'}, F1 Score: 0.9560260586319218
+Scaler: TfidfVectorizer, Ngram: 3, Parameters: {'n_estimators': 100, 'criterion': 'log_loss', 'max_features': 'log2'}, F1 Score: 0.9564509564509565
+Scaler: TfidfVectorizer, Ngram: 2, Parameters: {'n_estimators': 200, 'criterion': 'log_loss', 'max_features': None}, F1 Score: 0.9533932951757972
+Scaler: CountVectorizer, Ngram: 3, Parameters: {'n_estimators': 100, 'criterion': 'entropy', 'max_features': None}, F1 Score: 0.9546383326522272
+Scaler: CountVectorizer, Ngram: 3, Parameters: {'n_estimators': 100, 'criterion': 'gini', 'max_features': None}, F1 Score: 0.9548229548229549
+Scaler: CountVectorizer, Ngram: 3, Parameters: {'n_estimators': 100, 'criterion': 'log_loss', 'max_features': None}, F1 Score: 0.9543230016313213
+Scaler: TfidfVectorizer, Ngram: 3, Parameters: {'n_estimators': 50, 'criterion': 'entropy', 'max_features': None}, F1 Score: 0.9511400651465798
+Scaler: TfidfVectorizer, Ngram: 3, Parameters: {'n_estimators': 200, 'criterion': 'gini', 'max_features': 'sqrt'}, F1 Score: 0.9572649572649573
+Scaler: TfidfVectorizer, Ngram: 3, Parameters: {'n_estimators': 50, 'criterion': 'log_loss', 'max_features': None}, F1 Score: 0.9502852485737572
+Scaler: TfidfVectorizer, Ngram: 3, Parameters: {'n_estimators': 50, 'criterion': 'gini', 'max_features': None}, F1 Score: 0.9526530612244898
+Scaler: TfidfVectorizer, Ngram: 3, Parameters: {'n_estimators': 200, 'criterion': 'gini', 'max_features': 'log2'}, F1 Score: 0.9576202118989405
+Scaler: TfidfVectorizer, Ngram: 3, Parameters: {'n_estimators': 200, 'criterion': 'entropy', 'max_features': 'sqrt'}, F1 Score: 0.9576547231270358
+Scaler: TfidfVectorizer, Ngram: 2, Parameters: {'n_estimators': 200, 'criterion': 'gini', 'max_features': None}, F1 Score: 0.9475774424146147
+Scaler: CountVectorizer, Ngram: 4, Parameters: {'n_estimators': 50, 'criterion': 'gini', 'max_features': 'sqrt'}, F1 Score: 0.9425382389417114
+Scaler: TfidfVectorizer, Ngram: 3, Parameters: {'n_estimators': 200, 'criterion': 'entropy', 'max_features': 'log2'}, F1 Score: 0.9572649572649573
+Scaler: CountVectorizer, Ngram: 4, Parameters: {'n_estimators': 50, 'criterion': 'gini', 'max_features': 'log2'}, F1 Score: 0.9443983402489626
+Scaler: CountVectorizer, Ngram: 4, Parameters: {'n_estimators': 50, 'criterion': 'entropy', 'max_features': 'log2'}, F1 Score: 0.9440530460008288
+Scaler: CountVectorizer, Ngram: 4, Parameters: {'n_estimators': 50, 'criterion': 'entropy', 'max_features': 'sqrt'}, F1 Score: 0.9438480594549958
+Scaler: TfidfVectorizer, Ngram: 3, Parameters: {'n_estimators': 200, 'criterion': 'log_loss', 'max_features': 'sqrt'}, F1 Score: 0.9572649572649573
+Scaler: TfidfVectorizer, Ngram: 3, Parameters: {'n_estimators': 200, 'criterion': 'log_loss', 'max_features': 'log2'}, F1 Score: 0.9559902200488998
+Scaler: CountVectorizer, Ngram: 4, Parameters: {'n_estimators': 50, 'criterion': 'log_loss', 'max_features': 'log2'}, F1 Score: 0.9436152570480929
+Scaler: CountVectorizer, Ngram: 4, Parameters: {'n_estimators': 50, 'criterion': 'log_loss', 'max_features': 'sqrt'}, F1 Score: 0.9429752066115702
+Scaler: CountVectorizer, Ngram: 4, Parameters: {'n_estimators': 100, 'criterion': 'gini', 'max_features': 'sqrt'}, F1 Score: 0.9434118133002891
+Scaler: CountVectorizer, Ngram: 4, Parameters: {'n_estimators': 100, 'criterion': 'gini', 'max_features': 'log2'}, F1 Score: 0.9461474730737366
+Scaler: CountVectorizer, Ngram: 4, Parameters: {'n_estimators': 100, 'criterion': 'entropy', 'max_features': 'log2'}, F1 Score: 0.9461474730737366
+Scaler: CountVectorizer, Ngram: 4, Parameters: {'n_estimators': 100, 'criterion': 'entropy', 'max_features': 'sqrt'}, F1 Score: 0.9418076764341725
+Scaler: CountVectorizer, Ngram: 4, Parameters: {'n_estimators': 100, 'criterion': 'log_loss', 'max_features': 'log2'}, F1 Score: 0.9427860696517413
+Scaler: CountVectorizer, Ngram: 4, Parameters: {'n_estimators': 100, 'criterion': 'log_loss', 'max_features': 'sqrt'}, F1 Score: 0.9421487603305785
+Scaler: TfidfVectorizer, Ngram: 3, Parameters: {'n_estimators': 100, 'criterion': 'entropy', 'max_features': None}, F1 Score: 0.9506726457399103
+Scaler: CountVectorizer, Ngram: 4, Parameters: {'n_estimators': 50, 'criterion': 'entropy', 'max_features': None}, F1 Score: 0.9393687707641196
+Scaler: CountVectorizer, Ngram: 4, Parameters: {'n_estimators': 50, 'criterion': 'gini', 'max_features': None}, F1 Score: 0.9390294483616757
+Scaler: TfidfVectorizer, Ngram: 3, Parameters: {'n_estimators': 100, 'criterion': 'gini', 'max_features': None}, F1 Score: 0.9511400651465798
+Scaler: TfidfVectorizer, Ngram: 3, Parameters: {'n_estimators': 100, 'criterion': 'log_loss', 'max_features': None}, F1 Score: 0.9522643818849449
+Scaler: CountVectorizer, Ngram: 4, Parameters: {'n_estimators': 50, 'criterion': 'log_loss', 'max_features': None}, F1 Score: 0.9411764705882353
+Scaler: CountVectorizer, Ngram: 3, Parameters: {'n_estimators': 200, 'criterion': 'entropy', 'max_features': None}, F1 Score: 0.9547123623011016
+Scaler: CountVectorizer, Ngram: 3, Parameters: {'n_estimators': 200, 'criterion': 'log_loss', 'max_features': None}, F1 Score: 0.9547123623011016
+Scaler: CountVectorizer, Ngram: 4, Parameters: {'n_estimators': 200, 'criterion': 'gini', 'max_features': 'sqrt'}, F1 Score: 0.9434585224927775
+Scaler: CountVectorizer, Ngram: 4, Parameters: {'n_estimators': 200, 'criterion': 'gini', 'max_features': 'log2'}, F1 Score: 0.945364238410596
+Scaler: TfidfVectorizer, Ngram: 4, Parameters: {'n_estimators': 50, 'criterion': 'gini', 'max_features': 'sqrt'}, F1 Score: 0.9424430641821946
+Scaler: TfidfVectorizer, Ngram: 4, Parameters: {'n_estimators': 50, 'criterion': 'gini', 'max_features': 'log2'}, F1 Score: 0.9440993788819876
+Scaler: CountVectorizer, Ngram: 3, Parameters: {'n_estimators': 200, 'criterion': 'gini', 'max_features': None}, F1 Score: 0.9548229548229549
+Scaler: CountVectorizer, Ngram: 4, Parameters: {'n_estimators': 200, 'criterion': 'entropy', 'max_features': 'sqrt'}, F1 Score: 0.943801652892562
+Scaler: TfidfVectorizer, Ngram: 4, Parameters: {'n_estimators': 50, 'criterion': 'entropy', 'max_features': 'sqrt'}, F1 Score: 0.9437086092715232
+Scaler: TfidfVectorizer, Ngram: 4, Parameters: {'n_estimators': 50, 'criterion': 'entropy', 'max_features': 'log2'}, F1 Score: 0.9432712215320911
+Scaler: CountVectorizer, Ngram: 4, Parameters: {'n_estimators': 200, 'criterion': 'log_loss', 'max_features': 'sqrt'}, F1 Score: 0.943801652892562
+Scaler: CountVectorizer, Ngram: 4, Parameters: {'n_estimators': 200, 'criterion': 'entropy', 'max_features': 'log2'}, F1 Score: 0.9448361675653256
+Scaler: TfidfVectorizer, Ngram: 4, Parameters: {'n_estimators': 50, 'criterion': 'log_loss', 'max_features': 'sqrt'}, F1 Score: 0.9436619718309859
+Scaler: TfidfVectorizer, Ngram: 4, Parameters: {'n_estimators': 50, 'criterion': 'log_loss', 'max_features': 'log2'}, F1 Score: 0.9449731071576334
+Scaler: CountVectorizer, Ngram: 4, Parameters: {'n_estimators': 200, 'criterion': 'log_loss', 'max_features': 'log2'}, F1 Score: 0.9440530460008288
+Scaler: TfidfVectorizer, Ngram: 4, Parameters: {'n_estimators': 100, 'criterion': 'gini', 'max_features': 'sqrt'}, F1 Score: 0.9432712215320911
+Scaler: TfidfVectorizer, Ngram: 4, Parameters: {'n_estimators': 100, 'criterion': 'gini', 'max_features': 'log2'}, F1 Score: 0.9440530460008288
+Scaler: TfidfVectorizer, Ngram: 4, Parameters: {'n_estimators': 100, 'criterion': 'entropy', 'max_features': 'log2'}, F1 Score: 0.9432242022378782
+Scaler: TfidfVectorizer, Ngram: 4, Parameters: {'n_estimators': 100, 'criterion': 'entropy', 'max_features': 'sqrt'}, F1 Score: 0.9436619718309859
+Scaler: TfidfVectorizer, Ngram: 4, Parameters: {'n_estimators': 100, 'criterion': 'log_loss', 'max_features': 'log2'}, F1 Score: 0.9436619718309859
+Scaler: TfidfVectorizer, Ngram: 4, Parameters: {'n_estimators': 100, 'criterion': 'log_loss', 'max_features': 'sqrt'}, F1 Score: 0.9437086092715232
+Scaler: CountVectorizer, Ngram: 4, Parameters: {'n_estimators': 100, 'criterion': 'gini', 'max_features': None}, F1 Score: 0.9399088271860754
+Scaler: CountVectorizer, Ngram: 4, Parameters: {'n_estimators': 100, 'criterion': 'entropy', 'max_features': None}, F1 Score: 0.9407867494824017
+Scaler: TfidfVectorizer, Ngram: 4, Parameters: {'n_estimators': 50, 'criterion': 'entropy', 'max_features': None}, F1 Score: 0.9390294483616757
+Scaler: TfidfVectorizer, Ngram: 4, Parameters: {'n_estimators': 200, 'criterion': 'gini', 'max_features': 'log2'}, F1 Score: 0.9444904722452361
+Scaler: CountVectorizer, Ngram: 4, Parameters: {'n_estimators': 100, 'criterion': 'log_loss', 'max_features': None}, F1 Score: 0.9402985074626866
+Scaler: TfidfVectorizer, Ngram: 4, Parameters: {'n_estimators': 200, 'criterion': 'gini', 'max_features': 'sqrt'}, F1 Score: 0.9441456350848159
+Scaler: TfidfVectorizer, Ngram: 4, Parameters: {'n_estimators': 50, 'criterion': 'log_loss', 'max_features': None}, F1 Score: 0.9394190871369295
+Scaler: TfidfVectorizer, Ngram: 4, Parameters: {'n_estimators': 50, 'criterion': 'gini', 'max_features': None}, F1 Score: 0.939469320066335
+Scaler: TfidfVectorizer, Ngram: 3, Parameters: {'n_estimators': 200, 'criterion': 'entropy', 'max_features': None}, F1 Score: 0.9506726457399103
+Scaler: TfidfVectorizer, Ngram: 4, Parameters: {'n_estimators': 200, 'criterion': 'entropy', 'max_features': 'sqrt'}, F1 Score: 0.9428334714167357
+Scaler: TfidfVectorizer, Ngram: 3, Parameters: {'n_estimators': 200, 'criterion': 'log_loss', 'max_features': None}, F1 Score: 0.9510603588907015
+Scaler: CountVectorizer, Ngram: 5, Parameters: {'n_estimators': 50, 'criterion': 'gini', 'max_features': 'log2'}, F1 Score: 0.9266441821247892
+Scaler: TfidfVectorizer, Ngram: 4, Parameters: {'n_estimators': 200, 'criterion': 'log_loss', 'max_features': 'sqrt'}, F1 Score: 0.9445822994210091
+Scaler: TfidfVectorizer, Ngram: 4, Parameters: {'n_estimators': 200, 'criterion': 'entropy', 'max_features': 'log2'}, F1 Score: 0.9440993788819876
+Scaler: CountVectorizer, Ngram: 5, Parameters: {'n_estimators': 50, 'criterion': 'gini', 'max_features': 'sqrt'}, F1 Score: 0.926829268292683
+Scaler: CountVectorizer, Ngram: 5, Parameters: {'n_estimators': 50, 'criterion': 'entropy', 'max_features': 'sqrt'}, F1 Score: 0.9272803699033207
+Scaler: CountVectorizer, Ngram: 5, Parameters: {'n_estimators': 50, 'criterion': 'entropy', 'max_features': 'log2'}, F1 Score: 0.9266441821247892
+Scaler: TfidfVectorizer, Ngram: 4, Parameters: {'n_estimators': 200, 'criterion': 'log_loss', 'max_features': 'log2'}, F1 Score: 0.9436619718309859
+Scaler: CountVectorizer, Ngram: 5, Parameters: {'n_estimators': 50, 'criterion': 'log_loss', 'max_features': 'log2'}, F1 Score: 0.927487352445194
+Scaler: CountVectorizer, Ngram: 5, Parameters: {'n_estimators': 50, 'criterion': 'log_loss', 'max_features': 'sqrt'}, F1 Score: 0.9273414531709366
+Scaler: TfidfVectorizer, Ngram: 3, Parameters: {'n_estimators': 200, 'criterion': 'gini', 'max_features': None}, F1 Score: 0.9515274949083503
+Scaler: CountVectorizer, Ngram: 5, Parameters: {'n_estimators': 100, 'criterion': 'gini', 'max_features': 'sqrt'}, F1 Score: 0.9269521410579346
+Scaler: CountVectorizer, Ngram: 5, Parameters: {'n_estimators': 100, 'criterion': 'gini', 'max_features': 'log2'}, F1 Score: 0.9270350063264445
+Scaler: CountVectorizer, Ngram: 5, Parameters: {'n_estimators': 100, 'criterion': 'entropy', 'max_features': 'log2'}, F1 Score: 0.9283305227655987
+Scaler: CountVectorizer, Ngram: 5, Parameters: {'n_estimators': 100, 'criterion': 'entropy', 'max_features': 'sqrt'}, F1 Score: 0.9272803699033207
+Scaler: CountVectorizer, Ngram: 5, Parameters: {'n_estimators': 100, 'criterion': 'log_loss', 'max_features': 'log2'}, F1 Score: 0.9267676767676768
+Scaler: CountVectorizer, Ngram: 5, Parameters: {'n_estimators': 100, 'criterion': 'log_loss', 'max_features': 'sqrt'}, F1 Score: 0.9281210592686002
+Scaler: TfidfVectorizer, Ngram: 4, Parameters: {'n_estimators': 100, 'criterion': 'entropy', 'max_features': None}, F1 Score: 0.9403479701739851
+Scaler: TfidfVectorizer, Ngram: 4, Parameters: {'n_estimators': 100, 'criterion': 'gini', 'max_features': None}, F1 Score: 0.9399088271860754
+Scaler: CountVectorizer, Ngram: 5, Parameters: {'n_estimators': 50, 'criterion': 'entropy', 'max_features': None}, F1 Score: 0.9230118443316413
+Scaler: CountVectorizer, Ngram: 5, Parameters: {'n_estimators': 50, 'criterion': 'gini', 'max_features': None}, F1 Score: 0.9235318969159273
+Scaler: TfidfVectorizer, Ngram: 4, Parameters: {'n_estimators': 100, 'criterion': 'log_loss', 'max_features': None}, F1 Score: 0.9398589796764828
+Scaler: CountVectorizer, Ngram: 5, Parameters: {'n_estimators': 200, 'criterion': 'gini', 'max_features': 'log2'}, F1 Score: 0.927487352445194
+Scaler: CountVectorizer, Ngram: 5, Parameters: {'n_estimators': 50, 'criterion': 'log_loss', 'max_features': None}, F1 Score: 0.9230769230769231
+Scaler: CountVectorizer, Ngram: 5, Parameters: {'n_estimators': 200, 'criterion': 'gini', 'max_features': 'sqrt'}, F1 Score: 0.9277310924369748
+Scaler: CountVectorizer, Ngram: 5, Parameters: {'n_estimators': 200, 'criterion': 'entropy', 'max_features': 'sqrt'}, F1 Score: 0.9273414531709366
+Scaler: CountVectorizer, Ngram: 5, Parameters: {'n_estimators': 200, 'criterion': 'log_loss', 'max_features': 'sqrt'}, F1 Score: 0.926890756302521
+Scaler: CountVectorizer, Ngram: 4, Parameters: {'n_estimators': 200, 'criterion': 'entropy', 'max_features': None}, F1 Score: 0.9419568822553898
+Scaler: CountVectorizer, Ngram: 5, Parameters: {'n_estimators': 200, 'criterion': 'entropy', 'max_features': 'log2'}, F1 Score: 0.9278785322648672
+Scaler: TfidfVectorizer, Ngram: 5, Parameters: {'n_estimators': 50, 'criterion': 'gini', 'max_features': 'log2'}, F1 Score: 0.9271578947368421
+Scaler: TfidfVectorizer, Ngram: 5, Parameters: {'n_estimators': 50, 'criterion': 'gini', 'max_features': 'sqrt'}, F1 Score: 0.928
+Scaler: CountVectorizer, Ngram: 5, Parameters: {'n_estimators': 200, 'criterion': 'log_loss', 'max_features': 'log2'}, F1 Score: 0.9275484414490311
+Scaler: CountVectorizer, Ngram: 4, Parameters: {'n_estimators': 200, 'criterion': 'log_loss', 'max_features': None}, F1 Score: 0.9410788381742738
+Scaler: TfidfVectorizer, Ngram: 5, Parameters: {'n_estimators': 50, 'criterion': 'entropy', 'max_features': 'sqrt'}, F1 Score: 0.928
+Scaler: TfidfVectorizer, Ngram: 5, Parameters: {'n_estimators': 50, 'criterion': 'entropy', 'max_features': 'log2'}, F1 Score: 0.9259259259259259
+Scaler: TfidfVectorizer, Ngram: 5, Parameters: {'n_estimators': 50, 'criterion': 'log_loss', 'max_features': 'log2'}, F1 Score: 0.9254108723135271
+Scaler: TfidfVectorizer, Ngram: 5, Parameters: {'n_estimators': 50, 'criterion': 'log_loss', 'max_features': 'sqrt'}, F1 Score: 0.9267059814658803
+Scaler: CountVectorizer, Ngram: 4, Parameters: {'n_estimators': 200, 'criterion': 'gini', 'max_features': None}, F1 Score: 0.9407867494824017
+Scaler: TfidfVectorizer, Ngram: 5, Parameters: {'n_estimators': 100, 'criterion': 'gini', 'max_features': 'log2'}, F1 Score: 0.9254108723135271
+Scaler: TfidfVectorizer, Ngram: 5, Parameters: {'n_estimators': 100, 'criterion': 'gini', 'max_features': 'sqrt'}, F1 Score: 0.9272803699033207
+Scaler: TfidfVectorizer, Ngram: 5, Parameters: {'n_estimators': 100, 'criterion': 'entropy', 'max_features': 'log2'}, F1 Score: 0.9253479544495993
+Scaler: TfidfVectorizer, Ngram: 5, Parameters: {'n_estimators': 100, 'criterion': 'entropy', 'max_features': 'sqrt'}, F1 Score: 0.9272803699033207
+Scaler: TfidfVectorizer, Ngram: 5, Parameters: {'n_estimators': 100, 'criterion': 'log_loss', 'max_features': 'log2'}, F1 Score: 0.9257383966244725
+Scaler: TfidfVectorizer, Ngram: 5, Parameters: {'n_estimators': 100, 'criterion': 'log_loss', 'max_features': 'sqrt'}, F1 Score: 0.9276703111858705
+Scaler: CountVectorizer, Ngram: 5, Parameters: {'n_estimators': 100, 'criterion': 'gini', 'max_features': None}, F1 Score: 0.9239222316145393
+Scaler: CountVectorizer, Ngram: 5, Parameters: {'n_estimators': 100, 'criterion': 'entropy', 'max_features': None}, F1 Score: 0.9231418918918919
+Scaler: TfidfVectorizer, Ngram: 5, Parameters: {'n_estimators': 200, 'criterion': 'gini', 'max_features': 'log2'}, F1 Score: 0.9258010118043845
+Scaler: CountVectorizer, Ngram: 5, Parameters: {'n_estimators': 100, 'criterion': 'log_loss', 'max_features': None}, F1 Score: 0.9230118443316413
+Scaler: TfidfVectorizer, Ngram: 5, Parameters: {'n_estimators': 200, 'criterion': 'gini', 'max_features': 'sqrt'}, F1 Score: 0.927219183845183
+Scaler: TfidfVectorizer, Ngram: 5, Parameters: {'n_estimators': 50, 'criterion': 'entropy', 'max_features': None}, F1 Score: 0.9232067510548523
+Scaler: TfidfVectorizer, Ngram: 5, Parameters: {'n_estimators': 50, 'criterion': 'log_loss', 'max_features': None}, F1 Score: 0.9240506329113924
+Scaler: TfidfVectorizer, Ngram: 5, Parameters: {'n_estimators': 50, 'criterion': 'gini', 'max_features': None}, F1 Score: 0.9239222316145393
+Scaler: TfidfVectorizer, Ngram: 5, Parameters: {'n_estimators': 200, 'criterion': 'entropy', 'max_features': 'sqrt'}, F1 Score: 0.9263157894736842
+Scaler: TfidfVectorizer, Ngram: 5, Parameters: {'n_estimators': 200, 'criterion': 'entropy', 'max_features': 'log2'}, F1 Score: 0.9262536873156342
+Scaler: TfidfVectorizer, Ngram: 5, Parameters: {'n_estimators': 200, 'criterion': 'log_loss', 'max_features': 'sqrt'}, F1 Score: 0.927219183845183
+Scaler: TfidfVectorizer, Ngram: 5, Parameters: {'n_estimators': 200, 'criterion': 'log_loss', 'max_features': 'log2'}, F1 Score: 0.9262536873156342
+Scaler: TfidfVectorizer, Ngram: 4, Parameters: {'n_estimators': 200, 'criterion': 'entropy', 'max_features': None}, F1 Score: 0.939469320066335
+Scaler: TfidfVectorizer, Ngram: 4, Parameters: {'n_estimators': 200, 'criterion': 'log_loss', 'max_features': None}, F1 Score: 0.9385892116182573
+Scaler: TfidfVectorizer, Ngram: 4, Parameters: {'n_estimators': 200, 'criterion': 'gini', 'max_features': None}, F1 Score: 0.939469320066335
+Scaler: TfidfVectorizer, Ngram: 5, Parameters: {'n_estimators': 100, 'criterion': 'entropy', 'max_features': None}, F1 Score: 0.9227522161249473
+Scaler: TfidfVectorizer, Ngram: 5, Parameters: {'n_estimators': 100, 'criterion': 'gini', 'max_features': None}, F1 Score: 0.9234672304439746
+Scaler: TfidfVectorizer, Ngram: 5, Parameters: {'n_estimators': 100, 'criterion': 'log_loss', 'max_features': None}, F1 Score: 0.9232067510548523
+Scaler: CountVectorizer, Ngram: 5, Parameters: {'n_estimators': 200, 'criterion': 'entropy', 'max_features': None}, F1 Score: 0.9226215644820296
+Scaler: CountVectorizer, Ngram: 5, Parameters: {'n_estimators': 200, 'criterion': 'log_loss', 'max_features': None}, F1 Score: 0.9226869455006337
+Scaler: CountVectorizer, Ngram: 5, Parameters: {'n_estimators': 200, 'criterion': 'gini', 'max_features': None}, F1 Score: 0.9230769230769231
+Scaler: TfidfVectorizer, Ngram: 5, Parameters: {'n_estimators': 200, 'criterion': 'entropy', 'max_features': None}, F1 Score: 0.9232067510548523
+Scaler: TfidfVectorizer, Ngram: 5, Parameters: {'n_estimators': 200, 'criterion': 'log_loss', 'max_features': None}, F1 Score: 0.9232067510548523
+Scaler: TfidfVectorizer, Ngram: 5, Parameters: {'n_estimators': 200, 'criterion': 'gini', 'max_features': None}, F1 Score: 0.9239864864864865
+Grid search completed in 14647.507622003555 seconds
+Best parameters found: {'n_estimators': 100, 'criterion': 'log_loss', 'max_features': 'log2'}
+Best F1 Score found: 0.97429718875502
+Best Ngram found: 1
+Best Scaler found: CountVectorizer

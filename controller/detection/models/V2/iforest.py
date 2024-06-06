@@ -5,7 +5,7 @@ class IForest(Model):
     contamination = 0.093
 
     def fit_vectorized(self, X_train, y_train=None):
-        self.instance = IsolationForest(random_state=42, contamination=self.contamination, n_estimators=200, max_samples=1.0, max_features=1.0)
+        self.instance = IsolationForest(random_state=42, contamination=self.contamination, n_estimators = 100, max_samples = 1.0, max_features = 0.75)
         self.instance.fit(X_train)
 
     def fit(self, X_train, y_train=None):
