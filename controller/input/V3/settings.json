@@ -1,5 +1,5 @@
 [
     {"file":"benign_FileRestoration_20min.zip", "malicious":false, "minutes":20, "name": "FileRestoration", "requires_admin":true, "on_crash": "retry"},
-    {"file":"malicious_lockbit_30min.zip", "malicious":true, "minutes":30, "name": "lockbit", "requires_admin":false, "recovery": "client_files", "on_crash": "retry"},
-    {"file":"malicious_babuk_30min.zip", "malicious":true, "minutes":30, "name": "babuk", "requires_admin":true, "recovery": "client_files", "on_crash": "retry"}
+    {"file":"malicious_lockbit_30min.zip", "malicious":true, "minutes":30, "name": "lockbit", "requires_admin":false, "on_crash": "retry"},
+    {"file":"malicious_babuk_30min.zip", "malicious":true, "minutes":30, "name": "babuk", "requires_admin":true, "on_crash": "retry"}
 ]
