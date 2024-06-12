@@ -1,3 +1,3 @@
 @echo off
 cd /d "%~dp0"
-powershell -command "Compress-Archive -Path 'C:\Users\Client\Documents\*' -DestinationPath 'D:\FileBackup\Documents_tst.zip'"
+"C:\Program Files\7-zip\7z.exe" -a -tzip  "D:\FileBackup\Documents_tst.zip" "C:\Users\Client\Documents\"
