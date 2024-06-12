@@ -7,7 +7,7 @@ $fullUserName = "$($user.Domain)\$($user.Name)"
 
 # Define the task name and the action
 $taskName = "\Start Logging"
-$action = New-ScheduledTaskAction -Execute "C:\HyperDbg\client\start_logging.bat"
+$action = New-ScheduledTaskAction -Execute "C:\HyperDtct\client\start_logging.bat"
 
 # Define the trigger (logon trigger)
 $trigger = New-ScheduledTaskTrigger -AtLogOn -User $fullUserName
