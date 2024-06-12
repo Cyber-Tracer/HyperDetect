@@ -1,0 +1,5 @@
+[
+    {"file":"benign_7zip-backup_20min.zip", "malicious":false, "minutes":20, "name": "7zip-backup", "requires_admin":true, "on_crash": "retry"},
+    {"file":"benign_zip-backup_30min.zip", "malicious":false, "minutes":30, "name": "zip-backup", "requires_admin":true, "on_crash": "retry"},
+    {"file":"benign_zip-recovery_30min.zip", "malicious":false, "minutes":30, "name": "zip-recovery", "requires_admin":true, "on_crash": "retry"}
+]

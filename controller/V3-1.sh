@@ -15,15 +15,15 @@ fi
 
 cd /home/logger/HyperDetect/controller/input
 
-mkdir -p ../input_zipped/V3/
+mkdir -p ../input_zipped/V3-1/
 
-python3 to_zipped.py --directory V3/ --output_directory ../input_zipped/V3/
+python3 to_zipped.py --directory V3-1/ --output_directory ../input_zipped/V3-1/
 
 cd ..
 
-mkdir -p /media/usb_log_volume/V3
+mkdir -p /media/usb_log_volume/V3-1
 
-su - logger -c "cd HyperDetect/controller && python3 start_server.py --input input_zipped/V3/ --log_dir /media/usb_log_volume/V3"
+su - logger -c "cd HyperDetect/controller && python3 start_server.py --input input_zipped/V3-1/ --log_dir /media/usb_log_volume/V3-1"
 
 echo "Done logging!"
 
