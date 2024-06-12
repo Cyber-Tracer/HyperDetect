@@ -30,6 +30,9 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
     if 'func' in args:
-        args.func(args)
+        if len(vars(args))==1:
+            args.func()
+        else:
+            args.func(args)
     else:
         parser.print_help()
