@@ -1,3 +1,5 @@
+@echo off
+cd /d "%~dp0"
 REM Remove all files in the destination directory
 del /q "C:\Users\Client\Documents\*.*"
 REM Remove all subdirectories and their contents in the destination directory
