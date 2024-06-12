@@ -1,6 +1,6 @@
 import requests
 import threading
-import os
+import argparse
 
 def download_zip_file(base_url, file_number, output_dir):
     url = f"{base_url}/{file_number}.zip"
@@ -35,13 +35,16 @@ def download_zip_files_multithreaded(base_url, start_index, end_index, output_di
     for thread in threads:
         thread.join()
 
-if __name__ == "__main__":
-    base_url = "https://digitalcorpora.s3.amazonaws.com/corpora/files/govdocs1/zipfiles"
-    start_index = 10  # Starting index of the files
-    end_index = 100  # Ending index of the files
-    output_dir = "./downloads"  # Directory to save the downloaded files
-
-    # Ensure the output directory exists
-    os.makedirs(output_dir, exist_ok=True)
-
+def main(start_index, end_index, output_dir, base_url = "https://digitalcorpora.s3.amazonaws.com/corpora/files/govdocs1/zipfiles"):
     download_zip_files_multithreaded(base_url, start_index, end_index, output_dir, num_threads=6)
+
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Download zip files from a base URL.")
+    parser.add_argument("start_index", type=int, help="Start index for file numbers")
+    parser.add_argument("end_index", type=int, help="End index for file numbers")
+    parser.add_argument("output_dir", type=str, help="Output directory for downloaded files")
+    args = parser.parse_args()
+
+    main(args.start_index, args.end_index, args.output_dir)
