@@ -1,2 +1,2 @@
 @echo off
-py "C:\HyperDbg\client\System\recovery.py"
+py "C:\HyperDtct\client\System\recovery.py"

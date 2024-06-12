@@ -13,7 +13,7 @@ import threading
 import subprocess
 
 # constants
-HYPERDBG_DIR = 'C:\\HyperDbg\\hyperdbg\\release'
+HYPERDBG_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..\\HyperDbg')
 PSEXEC_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), '.\\System\\PsExec.exe')
 CONTROLLER_IP = '192.168.8.3'
 CONTROLLER_PORT = 9090

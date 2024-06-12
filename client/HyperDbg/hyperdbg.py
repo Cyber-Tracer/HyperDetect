@@ -70,8 +70,8 @@ def start_logging(hyperdbg_dir, logger_ds_path):
     
 
 if __name__ == '__main__':
-    output_dir = 'C:\\users\\client\\desktop\\running.txt'
-    hyperdbg_dir = 'C:\\HyperDbg\\hyperdbg\\release'
+    output_dir = './running.txt'
+    hyperdbg_dir = 'C:\\HyperDtct\\HyperDbg'
     ds_path = os.path.join(os.getcwd(), 'test.ds')
     create_ds_file(test_ds_template_path, to_test_ds_template_dict(output_dir), ds_path)
     runnable = test_runnable(bat_file_path, hyperdbg_dir, ds_path, output_dir)
