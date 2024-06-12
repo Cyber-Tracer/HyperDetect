@@ -80,6 +80,7 @@ def handle_connection(connection, client_address, file_settings, log_dir):
     file_idx = 0
     log_file_name = None
     connection.settimeout(60)
+    finished_logging = False
     try:
         while file_idx < len(file_settings):
             data = connection.recv(BUFFER_SIZE).decode()
@@ -90,6 +91,7 @@ def handle_connection(connection, client_address, file_settings, log_dir):
                     send_file(connection, file_settings[file_idx]['file'])
                     print(f"Sent {os.path.basename(file_settings[file_idx]['file'])} to {client_address}")
                     log_file_name = to_log_file(log_dir, file_settings[file_idx]['malicious'], file_settings[file_idx]['name'], file_settings[file_idx]['minutes'])
+                    finished_logging = False
                 case "next_log":
                     if log_file_name is None:
                         print("No file was sent to client yet, cannot start logging...")
@@ -97,13 +99,15 @@ def handle_connection(connection, client_address, file_settings, log_dir):
                         continue
                     send_log_settings(connection, file_settings[file_idx]['malicious'], file_settings[file_idx]['name'], file_settings[file_idx]['minutes'], file_settings[file_idx]['requires_admin'], file_settings[file_idx].get('recovery', None))
                     create_log_socket(log_file_name, client_address[0], file_settings[file_idx].get('write_mode', 'w'))
+                    finished_logging = True
                     file_idx += 1
                 case "test_connection":
                     connection.sendall("ACK".encode())
                 case _:
                     print("Unknown command: ", data)
     except (socket.timeout, ConnectionResetError):
-        file_idx = file_idx -1 if file_idx > 0 else 0 # Retry the last file
+        if not finished_logging:
+            file_idx = file_idx -1 if file_idx > 0 else 0 # Retry the last file
         print("Client timed out, remaining files: ", len(file_settings) - file_idx)
     except ClientCrashedException as e:
         print(f"Client {client_address[0]} crashed after {e.minutes_logged} minutes while logging {log_file_name}, handling crash...")
