@@ -12,7 +12,8 @@ executable_pname_dict = {
     'roar-AES-CTR': 'roar.exe',
     'roar-ChaCha20': 'roar.exe',
     'cry': 'cry.exe',
-
+    'babuk': 'babuk.exe',
+    'lockbit': 'lockbit.exe',
 }
 
 def read_file(file_path):
@@ -48,7 +49,7 @@ def read_all_logs(version, logs_dir = '../logs'):
         Returns
             df(timestamp, pname, pid, tid, syscall, rcx, rdx, r8, r9, malicious)
     """
-    version_dirs = [ f.path for f in os.scandir(logs_dir) if f.is_dir() and bool(re.match(r'V\d+', f.name)) ]
+    version_dirs = [ f.path for f in os.scandir(logs_dir) if f.is_dir() and bool(re.fullmatch(r'V\d+(-\d+)?', f.name)) ]
 
     files = []
     for version_dir in version_dirs:
@@ -71,6 +72,19 @@ def read_all_logs(version, logs_dir = '../logs'):
 
     return pd.concat(dfs)
 
+def read_log_file(file_path):
+    """
+    Read a log file and classify which pname is malicious
+
+    Returns:
+        df(timestamp, pname, pid, tid, syscall, rcx, rdx, r8, r9, malicious)
+    """
+    df = read_file(file_path)
+    file_name = os.path.basename(file_path)
+    df = classify_malicious(df, file_name)
+    return df
+
+
 def read_logs_from_dir(logs_dir):
     """
         Read all logs from logs directory
@@ -86,9 +100,7 @@ def read_logs_from_dir(logs_dir):
     # Read all logs to df
     dfs = []
     for file in files:
-        df = read_file(file)
-        file_name = os.path.basename(file)
-        df = classify_malicious(df, file_name)
+        df = read_log_file(file)
         dfs.append(df)
 
     return pd.concat(dfs)

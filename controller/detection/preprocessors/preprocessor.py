@@ -10,7 +10,7 @@ class Preprocessor(ABC):
             Preprocessor
         """
         match version:
-            case 1 | 2:
+            case 1 | 2 | 3:
                 from .V1 import V1
                 return V1()
             case _:

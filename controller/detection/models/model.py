@@ -15,7 +15,7 @@ class Model(ABC):
                 from .V1.nb import NB
                 from .V1.rf import RF
                 return [IForest, LOF, NB, RF]
-            case 2:
+            case 2 | 3:
                 from .V2.iforest import IForest
                 from .V2.lof import LOF
                 from .V2.nb import NB
