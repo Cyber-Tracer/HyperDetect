@@ -74,7 +74,7 @@ try:
         if requires_admin:
             # launche execute.bat in next_file as admin
             print("Launching execute.bat as admin...")
-            subprocess.run(f'{next_file}\\execute.bat', shell=True)
+            subprocess.Popen(f'{next_file}\\execute.bat', shell=True)
         else:
             # launche execute.bat in next_file as non-admin
             runas.runas_client(f'{next_file}\\execute.bat')
