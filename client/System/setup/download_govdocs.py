@@ -1,6 +1,8 @@
 import requests
 import threading
 import argparse
+import os
+import zipfile
 
 def download_zip_file(base_url, file_number, output_dir):
     url = f"{base_url}/{file_number}.zip"
@@ -12,14 +14,36 @@ def download_zip_file(base_url, file_number, output_dir):
             for chunk in response.iter_content(chunk_size=8192):
                 file.write(chunk)
     else:
-        print(f"Failed to download {url}")
+        raise requests.HTTPError(f"Failed to download {url}")
 
-def download_zip_files_multithreaded(base_url, start_index, end_index, output_dir, num_threads=4):
+def extract_and_remove_zip(zip_path, extract_to):
+    if not os.path.isfile(zip_path):
+        raise FileNotFoundError(f"The file {zip_path} does not exist.")
+    
+    # Check if the extraction directory exists, if not, create it
+    if not os.path.exists(extract_to):
+        os.makedirs(extract_to)
+
+    # Extract the zip file
+    with zipfile.ZipFile(zip_path, 'r') as zip_ref:
+        zip_ref.extractall(extract_to)
+
+    # Remove the zip file
+    os.remove(zip_path)
+
+def download_zip_files_multithreaded(base_url, start_index, end_index, output_dir, num_threads=2):
     def worker(file_numbers):
         for file_number in file_numbers:
             print(f"Downloading {file_number}.zip...")
-            download_zip_file(base_url, file_number, output_dir)
+            try:
+                download_zip_file(base_url, file_number, output_dir)
+            except requests.HTTPError as e:
+                print(f"Failed to download {file_number}.zip: {e}")
+                continue
             print(f"Finished downloading {file_number}.zip")
+            print(f"Extracting {file_number}.zip...")
+            extract_and_remove_zip(f"{output_dir}/{file_number}.zip", output_dir)
+            print(f"Finished extracting {file_number}.zip")
 
     file_numbers = [f"{i:03d}" for i in range(start_index, end_index + 1)]
     chunk_size = len(file_numbers) // num_threads
@@ -36,7 +60,7 @@ def download_zip_files_multithreaded(base_url, start_index, end_index, output_di
         thread.join()
 
 def main(start_index, end_index, output_dir, base_url = "https://digitalcorpora.s3.amazonaws.com/corpora/files/govdocs1/zipfiles"):
-    download_zip_files_multithreaded(base_url, start_index, end_index, output_dir, num_threads=6)
+    download_zip_files_multithreaded(base_url, start_index, end_index, output_dir)
 
 
 
