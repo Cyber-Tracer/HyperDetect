@@ -8,9 +8,6 @@ Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Nam
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Name "DisableAntiSpyware" -Value 1 -Type DWord
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Name "DisableAntiVirus" -Value 1 -Type DWord
 
-# Disallow antimalware service to remain running always
-Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\WinDefend" -Name "Start" -Value 2 -Type DWord
-
 # Stop Windows Defender services if running
 Stop-Service -Name WinDefend -Force -ErrorAction SilentlyContinue
 Stop-Service -Name WdNisSvc -Force -ErrorAction SilentlyContinue
