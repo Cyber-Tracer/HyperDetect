@@ -7,7 +7,7 @@ load vmm
 .sym reload
 
 # Log output to controller socket
-output create SysCallLog TCP 192.168.8.3:8989
+output create SysCallLog TCP $$_controller_ip_$$
 output open SysCallLog
 
 # Log all syscalls, adapted from https://github.com/HyperDbg/scripts/blob/master/windows/DFIR/process-behavior-logger.ds

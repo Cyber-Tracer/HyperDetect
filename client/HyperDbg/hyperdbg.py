@@ -23,8 +23,11 @@ def wait_for_file(filename, timeout=60):
         else:
             time.sleep(1)
 
-def to_test_ds_template_dict(output_file):
-    return {'$$_output_file_$$': output_file}
+def to_test_ds_template_dict(output_file, controller_ip, controller_port):
+    return {
+        '$$_output_file_$$': output_file,
+        '$$_controller_ip_$$': f"{controller_ip}:{controller_port}",
+        }
 
 def to_ms_hex(duration_minutes):
     milliseconds = duration_minutes * 60 * 1000

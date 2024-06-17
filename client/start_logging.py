@@ -17,6 +17,7 @@ HYPERDBG_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..\\Hyp
 PSEXEC_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), '.\\System\\PsExec.exe')
 CONTROLLER_IP = '192.168.8.3'
 CONTROLLER_PORT = 9090
+CONTROLLER_LOG_PORT = 8989
 SAMPLE_DIR = 'C:\\Users\\Client\\Downloads'
 
 def check_connection(conn):
@@ -68,7 +69,7 @@ try:
         print(f'Next file: {next_file}')
         malicious, filename, duration_minutes, requires_admin, recovery = controller.request_next_log(conn)
         logger_ds_path = os.path.join(os.getcwd(), 'logger.ds')
-        hyperdbg.create_ds_file(hyperdbg.logger_ds_template_path, hyperdbg.to_logger_ds_template_dict(duration_minutes), logger_ds_path)
+        hyperdbg.create_ds_file(hyperdbg.logger_ds_template_path, hyperdbg.to_logger_ds_template_dict(duration_minutes, CONTROLLER_IP, CONTROLLER_LOG_PORT), logger_ds_path)
         hyperdbg.start_logging(HYPERDBG_DIR, logger_ds_path)
         time.sleep(10) # wait for HyperDbg to start
         if requires_admin:
