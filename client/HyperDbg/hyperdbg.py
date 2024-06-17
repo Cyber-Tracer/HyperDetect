@@ -23,19 +23,18 @@ def wait_for_file(filename, timeout=60):
         else:
             time.sleep(1)
 
-def to_test_ds_template_dict(output_file, controller_ip, controller_port):
-    return {
-        '$$_output_file_$$': output_file,
-        '$$_controller_ip_$$': f"{controller_ip}:{controller_port}",
-        }
+def to_test_ds_template_dict(output_file):
+    return {'$$_output_file_$$': output_file}
 
 def to_ms_hex(duration_minutes):
     milliseconds = duration_minutes * 60 * 1000
     # Convert the milliseconds to hexadecimal without the '0x' prefix
     return hex(milliseconds)[2:]
 
-def to_logger_ds_template_dict(duration_minutes):
-    return {'$$_duration_ms_hex_$$': str(to_ms_hex(duration_minutes))}
+def to_logger_ds_template_dict(duration_minutes, controller_ip, controller_port):
+    return {'$$_duration_ms_hex_$$': str(to_ms_hex(duration_minutes)),
+            '$$_controller_ip_$$': f"{controller_ip}:{controller_port}"
+            }
 
 def create_ds_file(ds_template_path, arg_dict, output_path):
     with open(ds_template_path, 'r') as f:
