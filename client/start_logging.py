@@ -40,7 +40,7 @@ output_dir = f'running_{timestamp}.txt'
 output_dir = os.path.join(os.getcwd(), output_dir)
 test_ds_path = os.path.join(os.getcwd(), 'test.ds')
 print('Checking if HyperDbg is runnable...')
-hyperdbg.create_ds_file(hyperdbg.test_ds_template_path, hyperdbg.to_test_ds_template_dict(output_dir), test_ds_path)
+hyperdbg.create_ds_file(hyperdbg.test_ds_template_path, hyperdbg.to_test_ds_template_dict(output_dir, CONTROLLER_IP, CONTROLLER_LOG_PORT), test_ds_path)
 runnable = hyperdbg.test_runnable(hyperdbg.bat_file_path, HYPERDBG_DIR, test_ds_path, output_dir)
 os.remove(test_ds_path)
 if not runnable:
