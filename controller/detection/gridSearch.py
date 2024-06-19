@@ -162,7 +162,7 @@ def train_and_evaluate(params):
 def update_best_params(results):
     global best_f1, best_params, best_ngram, best_vectorizer
     f1, params, ngram, vectorizer = results
-    print(f"Scaler: {vectorizer}, Ngram: {ngram}, Parameters: {params}, F1 Score: {f1}")
+    print(f"Vectorizer: {vectorizer}, Ngram: {ngram}, Parameters: {params}, F1 Score: {f1}")
     if f1 > best_f1:
         best_f1 = f1
         best_params = params
@@ -184,4 +184,4 @@ print(f"Grid search completed in {time.time() - start} seconds")
 print(f"Best parameters found: {best_params}")
 print(f"Best F1 Score found: {best_f1}")
 print(f"Best Ngram found: {best_ngram}")
-print(f"Best Scaler found: {best_vectorizer}")
+print(f"Best Vectorizer found: {best_vectorizer}")

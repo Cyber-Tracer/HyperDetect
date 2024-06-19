@@ -41,7 +41,7 @@ def to_model_properties(model):
     return {
         'Model': model.get_model_name(),
         'Model_Type': model.get_model_type(),
-        'Scaler': model.get_vectorizer_type(),
+        'Vectorizer': model.get_vectorizer_type(),
         'Min Ngram': model.get_ngram_range()[0],
         'Max Ngram': model.get_ngram_range()[1]
     }

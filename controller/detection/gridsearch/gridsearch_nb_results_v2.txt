@@ -22,38 +22,38 @@ Classifying malicious_RAASNet-AES_30min.log as malicious, 4252 malicious entries
 Start gridsearch for NB, version 2. Grid:  {'ngram': range(1, 6), 'vectorizer': [<class 'sklearn.feature_extraction.text.CountVectorizer'>, <class 'sklearn.feature_extraction.text.TfidfVectorizer'>], 'alpha': [0.2, 1.0, 2.0]}
 Total number of parameter combinations: 30
 Starting grid search...
-Scaler: CountVectorizer, Ngram: 1, Parameters: {'alpha': 1.0}, F1 Score: 0.841648590021692
-Scaler: TfidfVectorizer, Ngram: 1, Parameters: {'alpha': 1.0}, F1 Score: 0.8522483940042827
-Scaler: CountVectorizer, Ngram: 1, Parameters: {'alpha': 2.0}, F1 Score: 0.839549002601908
-Scaler: TfidfVectorizer, Ngram: 1, Parameters: {'alpha': 0.2}, F1 Score: 0.8586162440911044
-Scaler: CountVectorizer, Ngram: 1, Parameters: {'alpha': 0.2}, F1 Score: 0.8442516268980477
-Scaler: TfidfVectorizer, Ngram: 1, Parameters: {'alpha': 2.0}, F1 Score: 0.8508997429305912
-Scaler: TfidfVectorizer, Ngram: 2, Parameters: {'alpha': 2.0}, F1 Score: 0.9194741166803615
-Scaler: CountVectorizer, Ngram: 2, Parameters: {'alpha': 2.0}, F1 Score: 0.9540636042402827
-Scaler: CountVectorizer, Ngram: 3, Parameters: {'alpha': 0.2}, F1 Score: 0.953405017921147
-Scaler: TfidfVectorizer, Ngram: 2, Parameters: {'alpha': 0.2}, F1 Score: 0.9333871618893823
-Scaler: CountVectorizer, Ngram: 2, Parameters: {'alpha': 1.0}, F1 Score: 0.957513768686074
-Scaler: CountVectorizer, Ngram: 2, Parameters: {'alpha': 0.2}, F1 Score: 0.9574803149606299
-Scaler: CountVectorizer, Ngram: 3, Parameters: {'alpha': 2.0}, F1 Score: 0.9528377298161471
-Scaler: CountVectorizer, Ngram: 3, Parameters: {'alpha': 1.0}, F1 Score: 0.9529130087789306
-Scaler: TfidfVectorizer, Ngram: 2, Parameters: {'alpha': 1.0}, F1 Score: 0.9225122349102773
-Scaler: TfidfVectorizer, Ngram: 3, Parameters: {'alpha': 0.2}, F1 Score: 0.9399919452275474
-Scaler: TfidfVectorizer, Ngram: 3, Parameters: {'alpha': 1.0}, F1 Score: 0.927596193628465
-Scaler: CountVectorizer, Ngram: 4, Parameters: {'alpha': 0.2}, F1 Score: 0.950446791226645
-Scaler: TfidfVectorizer, Ngram: 3, Parameters: {'alpha': 2.0}, F1 Score: 0.9171920975199663
-Scaler: CountVectorizer, Ngram: 4, Parameters: {'alpha': 1.0}, F1 Score: 0.9484787018255578
-Scaler: CountVectorizer, Ngram: 4, Parameters: {'alpha': 2.0}, F1 Score: 0.9475822836245429
-Scaler: TfidfVectorizer, Ngram: 4, Parameters: {'alpha': 0.2}, F1 Score: 0.9432098765432099
-Scaler: TfidfVectorizer, Ngram: 4, Parameters: {'alpha': 1.0}, F1 Score: 0.927487352445194
-Scaler: TfidfVectorizer, Ngram: 4, Parameters: {'alpha': 2.0}, F1 Score: 0.9174861051731509
-Scaler: CountVectorizer, Ngram: 5, Parameters: {'alpha': 1.0}, F1 Score: 0.9345484672742337
-Scaler: CountVectorizer, Ngram: 5, Parameters: {'alpha': 2.0}, F1 Score: 0.9328914664457332
-Scaler: CountVectorizer, Ngram: 5, Parameters: {'alpha': 0.2}, F1 Score: 0.9359768690623709
-Scaler: TfidfVectorizer, Ngram: 5, Parameters: {'alpha': 1.0}, F1 Score: 0.9294952023362536
-Scaler: TfidfVectorizer, Ngram: 5, Parameters: {'alpha': 2.0}, F1 Score: 0.9226240538267452
-Scaler: TfidfVectorizer, Ngram: 5, Parameters: {'alpha': 0.2}, F1 Score: 0.9354304635761589
+Vectorizer: CountVectorizer, Ngram: 1, Parameters: {'alpha': 1.0}, F1 Score: 0.841648590021692
+Vectorizer: TfidfVectorizer, Ngram: 1, Parameters: {'alpha': 1.0}, F1 Score: 0.8522483940042827
+Vectorizer: CountVectorizer, Ngram: 1, Parameters: {'alpha': 2.0}, F1 Score: 0.839549002601908
+Vectorizer: TfidfVectorizer, Ngram: 1, Parameters: {'alpha': 0.2}, F1 Score: 0.8586162440911044
+Vectorizer: CountVectorizer, Ngram: 1, Parameters: {'alpha': 0.2}, F1 Score: 0.8442516268980477
+Vectorizer: TfidfVectorizer, Ngram: 1, Parameters: {'alpha': 2.0}, F1 Score: 0.8508997429305912
+Vectorizer: TfidfVectorizer, Ngram: 2, Parameters: {'alpha': 2.0}, F1 Score: 0.9194741166803615
+Vectorizer: CountVectorizer, Ngram: 2, Parameters: {'alpha': 2.0}, F1 Score: 0.9540636042402827
+Vectorizer: CountVectorizer, Ngram: 3, Parameters: {'alpha': 0.2}, F1 Score: 0.953405017921147
+Vectorizer: TfidfVectorizer, Ngram: 2, Parameters: {'alpha': 0.2}, F1 Score: 0.9333871618893823
+Vectorizer: CountVectorizer, Ngram: 2, Parameters: {'alpha': 1.0}, F1 Score: 0.957513768686074
+Vectorizer: CountVectorizer, Ngram: 2, Parameters: {'alpha': 0.2}, F1 Score: 0.9574803149606299
+Vectorizer: CountVectorizer, Ngram: 3, Parameters: {'alpha': 2.0}, F1 Score: 0.9528377298161471
+Vectorizer: CountVectorizer, Ngram: 3, Parameters: {'alpha': 1.0}, F1 Score: 0.9529130087789306
+Vectorizer: TfidfVectorizer, Ngram: 2, Parameters: {'alpha': 1.0}, F1 Score: 0.9225122349102773
+Vectorizer: TfidfVectorizer, Ngram: 3, Parameters: {'alpha': 0.2}, F1 Score: 0.9399919452275474
+Vectorizer: TfidfVectorizer, Ngram: 3, Parameters: {'alpha': 1.0}, F1 Score: 0.927596193628465
+Vectorizer: CountVectorizer, Ngram: 4, Parameters: {'alpha': 0.2}, F1 Score: 0.950446791226645
+Vectorizer: TfidfVectorizer, Ngram: 3, Parameters: {'alpha': 2.0}, F1 Score: 0.9171920975199663
+Vectorizer: CountVectorizer, Ngram: 4, Parameters: {'alpha': 1.0}, F1 Score: 0.9484787018255578
+Vectorizer: CountVectorizer, Ngram: 4, Parameters: {'alpha': 2.0}, F1 Score: 0.9475822836245429
+Vectorizer: TfidfVectorizer, Ngram: 4, Parameters: {'alpha': 0.2}, F1 Score: 0.9432098765432099
+Vectorizer: TfidfVectorizer, Ngram: 4, Parameters: {'alpha': 1.0}, F1 Score: 0.927487352445194
+Vectorizer: TfidfVectorizer, Ngram: 4, Parameters: {'alpha': 2.0}, F1 Score: 0.9174861051731509
+Vectorizer: CountVectorizer, Ngram: 5, Parameters: {'alpha': 1.0}, F1 Score: 0.9345484672742337
+Vectorizer: CountVectorizer, Ngram: 5, Parameters: {'alpha': 2.0}, F1 Score: 0.9328914664457332
+Vectorizer: CountVectorizer, Ngram: 5, Parameters: {'alpha': 0.2}, F1 Score: 0.9359768690623709
+Vectorizer: TfidfVectorizer, Ngram: 5, Parameters: {'alpha': 1.0}, F1 Score: 0.9294952023362536
+Vectorizer: TfidfVectorizer, Ngram: 5, Parameters: {'alpha': 2.0}, F1 Score: 0.9226240538267452
+Vectorizer: TfidfVectorizer, Ngram: 5, Parameters: {'alpha': 0.2}, F1 Score: 0.9354304635761589
 Grid search completed in 49.263991832733154 seconds
 Best parameters found: {'alpha': 1.0}
 Best F1 Score found: 0.957513768686074
 Best Ngram found: 2
-Best Scaler found: CountVectorizer
+Best Vectorizer found: CountVectorizer
