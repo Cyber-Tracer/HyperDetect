@@ -1,5 +1,5 @@
 # HyperDtct: Hypervisor-Based Ransomware Detection
-This repository is part of a bachelor's thesis on the detection of ransomware using hypervisor-based introspection and introduces *HyperDtct*, a wrapper for the debugger HyperDbg.
+This repository is part of a bachelor's thesis on the detection of ransomware using hypervisor-based introspection and introduces *HyperDtct*, a wrapper for the debugger [HyperDbg](https://github.com/HyperDbg/HyperDbg).
 
 This repository contains the code for the controller and the client machine. The following image illustrates the architecture of *HyperDtct* considered during implementation:
 
@@ -20,7 +20,7 @@ Two users are required: an administrator user and a standard user called *Client
 ```
 
 2. Install HyperDbg and move the latest release’s directory to C:\HyperDtct\HyperDbg.
-3. Download the latest release of EfiGuard, and set up a bootable loader thumb drive. Move EfiDSEFix.exe to C:\HyperDtct\client\System\EfiDSEFix.exe. Configure the BIOS to boot on the thumb drive first.
+3. Download the latest release of [EfiGuard](https://github.com/Mattiwatti/EfiGuard), and set up a bootable loader thumb drive. Move EfiDSEFix.exe to C:\HyperDtct\client\System\EfiDSEFix.exe. Configure the BIOS to boot on the thumb drive first.
 4. Configure autologon and startup task. Replace USERNAME and PASSWORD with the administrator user’s credentials.
 ```bash
     C:\HyperDtct\client\System\setup\configure_autologin.bat USERNAME PASSWORD
