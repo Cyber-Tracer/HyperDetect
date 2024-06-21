@@ -61,7 +61,7 @@ version_param_grid = {
             PyodLOF,
             {
                 'contamination': [0.044], # Fixed
-                'random_state' : [42], # Fixed
+                'novelty' : [True], # Fixed
                 'ngram': ngram_range,
                 'vectorizer': vectorizers,
                 'n_neighbors': [10, 20, 50],
