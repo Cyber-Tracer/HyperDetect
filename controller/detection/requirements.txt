@@ -4,3 +4,4 @@ pyod
 scikit-learn
 scipy
 seaborn
+imbalanced-learn
